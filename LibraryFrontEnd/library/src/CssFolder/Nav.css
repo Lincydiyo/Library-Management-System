@@ -1,0 +1,67 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.mainNav {
+  background-color: rgba(0, 0, 0, 0.619);
+}
+
+.navbarBrand {
+  color: white;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.navbarCollapse {
+  text-align: center;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.miniNav .nav-link {
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 15px;
+}
+
+.miniNav .nav-link:hover,
+.miniNav .nav-link:focus {
+  color: #ddd;
+  background-color: transparent;
+}
+.navbarDropdown {
+  width: 50%;
+  max-width: 20%;
+ 
+}
+
+.navbarDropdown .dropdown-item:hover {
+  background-color: #555;
+  color: white;
+}
+
+
+@media (max-width: 991px) {
+  .navbarCollapse {
+    text-align: left;
+  }
+
+  .miniNav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbarDropdown {
+    width: 100%;
+  }
+
+  .navbarToggle {
+    border: none;
+  }
+}

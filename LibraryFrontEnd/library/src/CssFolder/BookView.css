@@ -1,0 +1,29 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+.mainCard {
+  margin-top: 50px;
+  width: 100%;
+  max-width: 500px;
+  background-color: #ecf0f17a;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+.cardImage {
+  height: auto;
+  width: 100%;
+  max-width: 200px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  border-radius: 10px;
+}

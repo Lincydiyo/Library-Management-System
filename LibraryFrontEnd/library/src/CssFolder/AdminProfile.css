@@ -1,0 +1,118 @@
+/* General Style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    cursor: pointer;
+  }
+
+/* Main Container Styling */
+.adminprofile {
+    padding: 30px;
+    background-color: #ecf0f180;
+    max-width: 400px;
+    margin: 5% auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+
+/* Heading Styling */
+.adminprofile h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Heading Styling */
+.adminprofile h4{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Button Styling */
+.adminprofile button {
+    width: 40%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #0989ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+/* Button Hover Styling */
+.adminprofile button:hover {
+    background-color: #2d7bc5;
+}
+
+/* Go Back Link Styling */
+.adminprofile .goback {
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Go Back Anchor Tag Hover */
+.adminprofile .goback:hover{
+    text-decoration: underline;
+  }
+
+
+/* Adminprofile Division Link Styling */
+.adminprofile a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+/* Responsive Design */
+
+/* Large Screens */
+@media screen and (min-width: 1200px) {
+    .adminprofile {
+        max-width: 500px;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
+
+/* Medium Screens (Desktops and Tablets) */
+@media screen and (max-width: 1199px) {
+    .adminprofile {
+        max-width: 60%;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
+
+/* Small Screens (Mobile Devices) */
+@media screen and (max-width: 768px) {
+    .adminprofile {
+        padding: 20px;
+        max-width: 80%;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
+
+/* Extra Small Screens (Very Small Mobile Devices) */
+@media screen and (max-width: 480px) {
+    .adminprofile {
+        padding: 15px;
+        max-width: 100%;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}

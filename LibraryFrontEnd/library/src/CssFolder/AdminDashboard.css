@@ -1,0 +1,239 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+/* Div styling */
+.dashboard {
+  padding: 40px 20px 20px 20px;
+  max-width: 400px;
+  margin-left: 63%;
+  margin-top: 5%;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 300);
+  background-color: #ecf0f14d;
+}
+
+/* Div Heading Styling */
+.dashboard h2 {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+/* Div Button Styling */
+.dashboard button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #0989ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Div Button Hover Styling */
+.dashboard button:hover {
+  background-color: #2d7bc5;
+}
+
+/* Link inside Button Styling */
+.dashboard button a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Link Hover Styling */
+.dashboard button a:hover {
+  background-color: #2d7bc5;
+}
+
+/* Go Back Styling */
+.dashboard .goback {
+  color: black;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Go Back Anchor Tag Hover */
+.dashboard .goback:hover{
+  text-decoration: underline;
+}
+
+
+
+
+/* Responsive Design */
+
+/* Extra Large (Large Desktops and PC) */
+@media screen and (min-width: 1200px) {
+  .dashboard {
+    padding: 50px;
+    max-width: 600px;
+    margin-left: 50%;
+    margin-top: 3%;
+    transform: translateX(-50%);
+    background-color: #ecf0f14d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 300);
+  }
+
+  .dashboard h2 {
+    font-size: 2rem;
+  }
+
+  .dashboard label {
+    font-size: 24px;
+  }
+
+  .dashboard input {
+    font-size: 18px;
+  }
+
+  .dashboard button {
+    font-size: 18px;
+  }
+
+  .dashboard .goback {
+    font-size: 18px;
+  }
+}
+
+/* Large Screens (Desktops, Tablets, and Large Mobile Devices) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .dashboard {
+    padding: 40px;
+    max-width: 100%;
+    margin-left: 50%;
+    margin-top: 5%;
+    transform: translateX(-50%);
+    background-color: #ecf0f14d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 300);
+  }
+
+  .dashboard h2 {
+    font-size: 1.8rem;
+  }
+
+  .dashboard label {
+    font-size: 22px;
+  }
+
+  .dashboard input {
+    font-size: 16px;
+  }
+
+  .dashboard button {
+    font-size: 16px;
+  }
+
+  .dashboard .goback {
+    font-size: 16px;
+  }
+}
+
+/* Tablet Devices (Portrait) */
+@media screen and (max-width: 768px) {
+  .dashboard {
+    padding: 30px;
+    max-width: 80%;
+    margin-left: 5%;
+    margin-top: 5%;
+    background-color: #ecf0f14d;
+  }
+
+  .dashboard h2 {
+    font-size: 1.6rem;
+  }
+
+  .dashboard label {
+    font-size: 18px;
+  }
+
+  .dashboard input {
+    font-size: 14px;
+  }
+
+  .dashboard button {
+    font-size: 15px;
+  }
+
+  .dashboard .goback {
+    font-size: 16px;
+  }
+}
+
+/* Mobile Devices (Small Screens) */
+@media screen and (max-width: 480px) {
+  .dashboard {
+    padding: 20px;
+    max-width: 90%;
+    margin-left: 5%;
+    margin-top: 10%;
+    background-color: #ecf0f14d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 300);
+  }
+
+  .dashboard h2 {
+    font-size: 1.5rem;
+  }
+
+  .dashboard label {
+    font-size: 17px;
+  }
+
+  .dashboard input {
+    font-size: 14px;
+  }
+
+  .dashboard button {
+    font-size: 15px;
+  }
+
+  .dashboard .goback {
+    font-size: 15px;
+  }
+}
+
+/* Extra Small Screens (Very Small Mobile Devices) */
+@media screen and (max-width: 375px) {
+  .dashboard {
+    padding: 15px;
+    max-width: 90%;
+    margin-left: 5%;
+    margin-top: 12%;
+    background-color: #ecf0f14d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 300);
+  }
+
+  .dashboard h2 {
+    font-size: 1.4rem;
+  }
+
+  .dashboard label {
+    font-size: 15px;
+  }
+
+  .dashboard input {
+    font-size: 12px;
+  }
+
+  .dashboard button {
+    font-size: 13px;
+  }
+
+  .dashboard .goback {
+    font-size: 13px;
+  }
+}

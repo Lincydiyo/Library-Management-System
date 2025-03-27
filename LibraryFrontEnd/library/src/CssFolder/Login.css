@@ -1,0 +1,152 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+/* Main Container Styling */
+.login {
+  padding: 30px;
+  background-color: #ecf0f180;
+  max-width: 400px;
+  margin: 5% auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+
+/* Heading Styling */
+.login h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Label styling */
+.login label {
+  display: block;
+  font-weight: 500;
+  font-size: 18px;
+  text-align: start;
+}
+
+/* Input Fields */
+.login input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* Input field focus styling */
+.login input:focus {
+  border-color: #0989ff;
+  outline: none;
+  border-bottom-width: 3px;
+}
+
+/* Button Styling */
+.login button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #0989ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 7%;
+}
+
+/* Button Hover Styling */
+.login button:hover {
+  background-color: #2d7bc5;
+}
+
+/* Go Back Link Styling */
+.login .goback {
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Go Back Anchor Tag Hover */
+.login .goback a:hover {
+  text-decoration: underline;
+}
+
+/* Links Container Styling */
+.login .links {
+  text-align: center;
+}
+
+/* Link Anchor Tag */
+.login .links a {
+  text-decoration: none;
+}
+
+/* Link Anchor Tag Hover*/
+.login .links a:hover {
+  text-decoration: underline;
+}
+
+/* Span Tag Styling */
+.login span {
+  color: red;
+  font-size: 17px;
+}
+
+/* Span Tag Anchor Tag Styling */
+.login span a {
+  text-decoration: none;
+}
+
+
+/* Span Tag Anchor Tag Hover Styling */
+
+.login span a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+
+/* Large Screens */
+@media screen and (min-width: 1200px) {
+  .login {
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+  }
+}
+
+/* Medium Screens (Desktops and Tablets) */
+@media screen and (max-width: 1199px) {
+  .login {
+    max-width: 60%;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+  }
+}
+
+/* Small Screens (Mobile Devices) */
+@media screen and (max-width: 768px) {
+  .login {
+    padding: 20px;
+    max-width: 80%;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+  }
+}
+
+/* Extra Small Screens (Very Small Mobile Devices) */
+@media screen and (max-width: 480px) {
+  .login {
+    padding: 15px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+  }
+}

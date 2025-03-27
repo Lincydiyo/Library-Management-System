@@ -1,0 +1,111 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+/* BookView styling */
+.bookdetails {
+  padding: 30px;
+  background-color: #ecf0f156;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.bookdetails th,
+.bookdetails td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: #ecf0f197;
+}
+
+.bookdetails th {
+  background-color: #0989ff;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.bookdetails td {
+  background-color: #ecf0f176;
+  font-size: 16px;
+}
+
+.bookdetails img {
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  object-fit: cover;
+}
+.viewButton {
+  background-color: #0989ff;
+  padding: 5px 3px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+}
+.viewButton:hover {
+  background-color: #2d7bc5;
+  padding: 10px 7px;
+  transition: 3s;
+  border-radius: 50px;
+}
+.dltButton {
+  background: none;
+  border: none;
+}
+.dltButton:hover {
+  background-color: #0989ff;
+  padding: 10px;
+  transition: 3s;
+  border-radius: 50px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+  .bookdetails {
+    padding: 20px;
+  }
+  .bookdetails th,
+  .bookdetails td {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bookdetails {
+    max-width: 100%;
+    padding: 10px;
+    overflow: scroll;
+  }
+  .bookdetails th,
+  .bookdetails td {
+    font-size: 12px;
+  }
+  .bookdetails img {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bookdetails {
+    padding: 5px;
+    overflow: scroll;
+  }
+  .bookdetails th,
+  .bookdetails td {
+    font-size: 12px;
+  }
+  .bookdetails img {
+    width: 60px;
+  }
+
+}

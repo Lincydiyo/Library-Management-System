@@ -1,0 +1,117 @@
+/* General Style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    cursor: pointer;
+  }
+/* Main Container Styling */
+.contactdiv {
+    padding: 30px;
+    background-color: #ecf0f180;
+    max-width: 400px;
+    margin: 5% auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+
+/* Heading Styling */
+.contactdiv h2{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Input Styling */
+.contactdiv input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* TextArea Styling */
+.contactdiv textarea{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+
+}
+
+/* Button Styling */
+.contactdiv button{
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #0989ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Button Hover Styling */
+.contactdiv button:hover{
+    background-color: #2d7bc5;
+}
+
+/* Anchor tag Styling */
+.contactdiv .goback {
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Go Back Anchor Tag Hover */
+.contactdiv .goback:hover {
+    text-decoration: underline;
+  }
+
+/* Responsive Design */
+
+/* Large Screens */
+@media screen and (min-width: 1200px) {
+    .contactdiv {
+        max-width: 500px;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
+
+/* Medium Screens (Desktops and Tablets) */
+@media screen and (max-width: 1199px) {
+    .contactdiv {
+        max-width: 60%;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
+
+/* Small Screens (Mobile Devices) */
+@media screen and (max-width: 768px) {
+    .contactdiv {
+        padding: 20px;
+        max-width: 80%;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
+
+/* Extra Small Screens (Very Small Mobile Devices) */
+@media screen and (max-width: 480px) {
+    .contactdiv {
+        padding: 15px;
+        max-width: 100%;
+        box-shadow: 0 4px 8px rgb(0, 0, 0);
+
+    }
+}
