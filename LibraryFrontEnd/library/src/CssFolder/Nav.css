@@ -37,14 +37,13 @@
 .navbarDropdown {
   width: 50%;
   max-width: 20%;
- 
+  margin-right: 8%;
 }
 
 .navbarDropdown .dropdown-item:hover {
   background-color: #555;
   color: white;
 }
-
 
 @media (max-width: 991px) {
   .navbarCollapse {

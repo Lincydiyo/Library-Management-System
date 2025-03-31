@@ -52,7 +52,7 @@ function StudentNav() {
                 </NavDropdown.Item>
 
               </NavDropdown>
-              <Nav.Link onClick={HandleLogOut}>Logout</Nav.Link>
+              <Nav.Link onClick={HandleLogOut} >Logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -19,7 +19,6 @@ function AdminDashboard({ adminName }) {
             <button type="button">
               <Link to="/bookdetails">Book Details</Link>
             </button>
-            <button type="button"> Issued Book</button>
             <button type="button">
               <Link to="/studentlist">Student List</Link>
             </button>
