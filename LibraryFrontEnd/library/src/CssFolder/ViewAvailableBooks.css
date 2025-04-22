@@ -6,6 +6,22 @@
   font-family: sans-serif;
   cursor: pointer;
 }
+.availableBookCard {
+  margin-left: 250px;
+  background-color: rgba(44, 62, 80, 0.2);
+  padding-bottom: 10%;
+}
+.availableBookCard h2 {
+  font-size: 42px;
+  font-weight: bolder;
+  color: #2c3e50;
+  padding-top: 10%;
+  text-align: center;
+}
+.availableBookCard p {
+  text-align: center;
+  margin-top: 30%;
+}
 /* Card Styling */
 .bookCard {
   border: none;
@@ -73,3 +89,22 @@
   margin-top: 150px;
 }
 
+@media (max-width: 992px) {
+  .availableBookCard {
+    margin-left: 0px;
+    margin-bottom: 30px;
+  }
+  .bookCard {
+    height: 400px;
+  }
+}
+@media (max-width: 576) {
+  .availableBookCard {
+    margin-left: 0px;
+    margin-bottom: 30px;
+    padding-bottom: 30%;
+  }
+  .bookCard {
+    height: 400px;
+  }
+}

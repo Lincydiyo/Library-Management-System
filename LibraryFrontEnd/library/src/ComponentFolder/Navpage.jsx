@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
+
 function Navpage() {
   return (
     <>
@@ -13,7 +14,6 @@ function Navpage() {
             <b> Library </b>
           </Navbar.Brand>
 
-          {/* Responsive toggle */}
           <Navbar.Toggle />
 
           <Navbar.Collapse className="navbarCollapse">
@@ -27,12 +27,13 @@ function Navpage() {
               </Nav.Link>
 
               <Nav.Link as={Link} to="/contact">
-                Contact{" "}
+                Contact
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
     </>
   );
 }

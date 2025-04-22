@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { TbLogin2 } from "react-icons/tb";
 import Navpage from "./Navpage";
 import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
   const fixedEmail = "admin@gmail.com";
@@ -12,8 +13,6 @@ function Login() {
     email: "",
     password: "",
   });
-
-  
 
   const navigate = useNavigate();
 
@@ -28,11 +27,12 @@ function Login() {
       adminlogin.email === fixedEmail &&
       adminlogin.password === fixedPassword
     ) {
-      
-      alert("Admin Login Successfull!");
-      navigate("/admindashboard");
+      toast.success("Admin Login Successful!");
+      setTimeout(() => {
+        navigate("/admindashboard");
+      }, 3000);
     } else {
-      alert("Invalid Email and Password. Please try again.");
+      toast.error("Invalid Email and Password. Please try again.");
     }
   };
 
@@ -44,42 +44,40 @@ function Login() {
           <div className="login">
             <h2>Admin Login</h2>
             <form onSubmit={handleLogin}>
-              <label>
-                UserName
-                <input
-                  type="text"
-                  placeholder="Enter Your Username"
-                  name="email"
-                  autoComplete="on"
-                  id="email"
-                  value={adminlogin.email}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-              <label>
-                Password
-                <input
-                  type="password"
-                  placeholder="Enter Your Password"
-                  name="password"
-                  id="password"
-                  autoComplete="on"
-                  value={adminlogin.password}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
+              <label>UserName </label>
+
+              <input
+                type="text"
+                placeholder="Enter Your Username"
+                name="email"
+                autoComplete="on"
+                id="email"
+                value={adminlogin.email}
+                onChange={handleChange}
+                required
+              />
+              <label>Password </label>
+
+              <input
+                type="password"
+                placeholder="Enter Your Password"
+                name="password"
+                id="password"
+                autoComplete="on"
+                value={adminlogin.password}
+                onChange={handleChange}
+                required
+              />
               <button type="submit">
-                {" "}
                 Login <TbLogin2 style={{ fontSize: 25 }} />
+                <ToastContainer />
               </button>
             </form>
           </div>
-          
         </div>
-        <Footer/>
+        <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }

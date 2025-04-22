@@ -1,60 +1,67 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
-import TeacherNav from "./TeacherNav";
-import Footer from "./Footer";
-import "../CssFolder/LandingPage.css";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import TeacherSideBar from "./TeacherSideBar";
+import "../CssFolder/Dashboard.css";
+import { IoBookOutline } from "react-icons/io5";
+import axios from "axios";
 
 function TeacherDashboard() {
-  // State to manage teacher name dynamically
-  const teacherName = localStorage.getItem("teacherName");
+  const [borrowedBooks, setBorrowedBooks] = useState(0);
+  const [pendingBooks, setPendingBooks] = useState(0);
+  const [rejectedBooks, setRejectedBooks] = useState(0);
+
+
+  useEffect(() => {
+    const teacherId = localStorage.getItem("teacherId");
+
+    axios
+      .post("http://localhost:5000/teacherBookReqRoute/findParticularTeacherRequests", {
+        teacherId,
+      })
+      .then((response) => {
+        const allRequests = response.data.RequestBook || [];
+
+        const borrowed = allRequests.filter(
+          (r) => r.status === "Approved" && !r.returnDate
+        ).length;
+        const pending = allRequests.filter(
+          (r) => r.status === "Pending"
+        ).length;
+        const rejected = allRequests.filter(
+          (r) => r.status === "Rejected"
+        ).length;
+
+        setBorrowedBooks(borrowed);
+        setPendingBooks(pending);
+        setRejectedBooks(rejected);
+      })
+      .catch((error) => {
+        console.log("Error fetching dashboard data:", error);
+      });
+  }, []);
   return (
     <>
-      <div className="maindivision">
-        <TeacherNav />
+      <TeacherSideBar />
+      <div className="dashboardDiv">
+        <h2>Teacher Dashboard</h2>
 
-        <div className="homediv">
-          <h1>Hello👋 {teacherName}, Welcome to the Library.</h1>
-
-          <Row xs={1} md={1} lg={1}>
-            <Col>
-            <div className="landingDiv">
-              <section className="landingPage">
-                <h3>Welcome to Your Dashboard</h3>
-                <p>
-                  Welcome to your teacher's library dashboard! Here, you can
-                  easily access a variety of resources, discover new books,
-                  assign readings to students, and manage your library
-                  account—all in one place. Whether you need textbooks, research
-                  papers, or novels, everything is just a click away.
-                </p>{" "}
-              </section>
-              <section className="landingPage">
-              <h3>Manage Your Academic Resources</h3>
-              <p >
-                Our library system is designed to help you manage your academic
-                needs efficiently. You can quickly find textbooks, view reading
-                recommendations, and explore resources relevant to your courses.
-              </p>
-              </section>
-             <section className="landingPage">
-             <h3>Explore a Vast Collection</h3>
-              <p >
-                Whether you're looking for new books to assign to your students
-                or need reference material for your lessons, our library has
-                everything you need. Explore our vast collection and manage your
-                reading assignments with ease!
-              </p>
-             </section>
-             </div>
-            </Col>
-          </Row>
-
-          <button type="button" className="landingBtn">
-            <Link to="/teacherViewAvailableBooks"> Browse Books</Link>
-          </button>
+        <div className="dashboardCardContainer">
+         
+          <div className="dashboardIconDiv">
+            <IoBookOutline style={{ color: "green", fontSize: "30px" }} />
+            <h4>Borrowed Books</h4>
+            <p>{borrowedBooks}</p>
+          </div>
+          <div className="dashboardIconDiv">
+            <IoBookOutline style={{ color: "#ffc107", fontSize: "30px" }} />
+            <h4>Pending Book Requests</h4>
+            <p>{pendingBooks}</p>
+          </div>
+          <div className="dashboardIconDiv">
+            <IoBookOutline style={{ color: "red", fontSize: "30px" }} />
+            <h4>Rejected Books</h4>
+            <p>{rejectedBooks}</p>
+          </div>
         </div>
-        <Footer />
       </div>
     </>
   );

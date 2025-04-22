@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { GiBookAura } from "react-icons/gi";
-import Footer from "./Footer";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../CssFolder/BookView.css";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import { Link } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
+import SideBar from "./SideBar";
 
 function BookView() {
   const [oneBook, setOneBook] = useState({});
@@ -17,7 +12,7 @@ function BookView() {
   //  Fetch BackEnd Data to View OneBook Details
   useEffect(() => {
     axios
-      .post("http://localhost:5000/findOneBook/" + id)
+      .post("http://localhost:5000/book/findOneBook/" + id)
       .then((response) => {
         setOneBook(response.data.findbook);
       })
@@ -27,52 +22,30 @@ function BookView() {
   }, [id]);
   return (
     <>
-      <div className="maindivision">
-        {/* Navbar Code */}
-        <Navbar variant="dark" expand="lg" className="mainNav">
-          <Container fluid>
-            <Navbar.Brand className="navbarBrand">
-              <GiBookAura style={{ fontSize: 50, marginRight: "10px" }} />
-              <b> MyLibrary </b>
-            </Navbar.Brand>
+      <SideBar />
+      <div className="mainBookDiv">
+        {/* BookView Code */}
+        <Card className="mainCard">
+          <Card.Img
+            variant="top"
+            className="cardImage"
+            src={`http://localhost:5000/${oneBook?.image?.filename}`}
+          />
 
-            {/* Responsive toggle */}
-            <Navbar.Toggle />
+          <Card.Body>
+            <Card.Title>Book Name: {oneBook?.bookName}</Card.Title>
+            <Card.Subtitle>Author Name: {oneBook?.authorName}</Card.Subtitle>
+            <Card.Text>Description: {oneBook?.description}</Card.Text>
+          </Card.Body>
 
-            <Navbar.Collapse className="navbarCollapse">
-              <Nav className="miniNav">
-                <Nav.Link as={Link} to="/admindashboard">
-                  BackToAdminDashBoard
-                </Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-        <div className="homediv">
-          {/* BookView Code */}
-          <Card className="mainCard">
-            <Card.Img
-              variant="top"
-              className="cardImage"
-              src={`http://localhost:5000/${oneBook?.image?.filename}`}
-            />
-
-            <Card.Body>
-              <Card.Title>Book Name: {oneBook?.bookName}</Card.Title>
-              <Card.Subtitle>Author Name: {oneBook?.authorName}</Card.Subtitle>
-              <Card.Text>Description: {oneBook?.description}</Card.Text>
-            </Card.Body>
-
-            <Card.Body>
-              <h5>BookPrice: {oneBook?.price}</h5>
-              <h5>PubishedDate: {oneBook?.published}</h5>
-              <br />
-              <Card.Link href="/bookdetails">Back To Book Details</Card.Link>
-              <Card.Link href="/addbook">Add Books</Card.Link>
-            </Card.Body>
-          </Card>
-        </div>
-        <Footer />
+          <Card.Body>
+            <h5 style={{ color: "red" }}>BookPrice: $ {oneBook?.price}</h5>
+            <h5>PubishedDate: {oneBook?.published}</h5>
+            <br />
+            <Card.Link href="/bookdetails">Back To Book Details</Card.Link>
+            <Card.Link href="/addbook">Add Books</Card.Link>
+          </Card.Body>
+        </Card>
       </div>
     </>
   );

@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.dashboardDiv {
+  margin-left: 250px;
+  padding: 100px 20px 40px;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  text-align: center;
+}
+
+.dashboardDiv h2 {
+  font-size: 42px;
+  font-weight: bolder;
+  text-transform: capitalize;
+  margin-bottom: 40px;
+  color: #2c3e50;
+}
+
+.dashboardCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dashboardIconDiv {
+  background-color: rgba(44, 62, 80, 0.2);
+  padding: 20px 40px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+  min-width: 250px;
+  max-width: 300px;
+  margin: 20px;
+}
+
+.dashboardIconDiv:hover {
+  transform: scale(1.1);
+}
+
+.dashboardIconDiv h4 {
+  font-size: 18px;
+  margin: 10px 0 5px;
+  color: #222;
+}
+
+.dashboardIconDiv p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Responsive for Tablet */
+@media (max-width: 992px) {
+  .dashboardDiv {
+    margin-left: 0;
+    padding-top: 90px;
+  }
+
+  .dashboardDiv h2 {
+    font-size: 34px;
+  }
+
+  .dashboardIconDiv {
+    margin: 15px 10px;
+    padding: 20px;
+  }
+}
+
+/* Responsive for Mobile */
+@media (max-width: 576px) {
+  .dashboardDiv {
+    padding-top: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .dashboardDiv h2 {
+    font-size: 28px;
+    margin-top: 15px;
+  }
+
+  .dashboardCardContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dashboardIconDiv p {
+    font-size: 18px;
+  }
+}

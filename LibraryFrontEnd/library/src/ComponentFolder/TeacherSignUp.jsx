@@ -4,6 +4,7 @@ import "../CssFolder/SignUp.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
 
 function TeacherSignUp() {
   const [teachersignup, setTeacherSignUp] = useState({
@@ -14,6 +15,8 @@ function TeacherSignUp() {
     department: "",
     phoneno: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
   const handleChange = (e) => {
     if (e.target.type === "file") {
@@ -36,13 +39,23 @@ function TeacherSignUp() {
     formData.append("phoneno", teachersignup.phoneno);
 
     axios
-      .post("http://localhost:5000/teacherSignup/", formData)
+      .post("http://localhost:5000/teacher/teacherSignup/", formData)
       .then((response) => {
-        alert(response.data.message);
-        navigate("/teacherlogin");
+        toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/teacherlogin");
+        }, 3000);
       })
       .catch((error) => {
-        console.log(error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          toast.error("Registration failed. Please try again.");
+        }
       });
   };
 
@@ -125,7 +138,12 @@ function TeacherSignUp() {
                   onChange={handleChange}
                   required
                 />
-              </label>
+              </label>{" "}
+              {errorMessage && (
+                <p style={{ color: "red", marginBottom: "10px" }}>
+                  {errorMessage}
+                </p>
+              )}
               <button type="submit"> SignUp </button>
               <span>
                 Already have an account? <a href="/teacherlogin">Login here</a>
@@ -135,6 +153,7 @@ function TeacherSignUp() {
         </div>
         <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }

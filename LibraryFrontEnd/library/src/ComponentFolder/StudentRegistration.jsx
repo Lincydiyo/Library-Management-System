@@ -3,8 +3,8 @@ import Navpage from "./Navpage";
 import { useNavigate } from "react-router-dom";
 import "../CssFolder/SignUp.css";
 import axios from "axios";
-import Footer from './Footer';
-
+import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
 
 function StudentRegistration() {
   const [studentSignup, setStudentSignUp] = useState({
@@ -17,6 +17,7 @@ function StudentRegistration() {
     semester: "",
     phoneno: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -44,13 +45,24 @@ function StudentRegistration() {
     formData.append("phoneno", studentSignup.phoneno);
 
     axios
-      .post("http://localhost:5000/studentSignup/", formData)
+      .post("http://localhost:5000/student/studentSignup/", formData)
       .then((response) => {
-        alert(response.data.message);
-        navigate("/studentlogin");
+        toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/studentlogin");
+        }, 3000);
       })
+
       .catch((error) => {
-        console.log(error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          toast.error("Registration failed. Please try again.");
+        }
       });
   };
 
@@ -114,6 +126,7 @@ function StudentRegistration() {
               <label>
                 Date of Birth
                 <input
+                  // type="date"
                   type="date"
                   placeholder="Enter Date of Birth"
                   name="dob"
@@ -172,7 +185,11 @@ function StudentRegistration() {
                 />
               </label>
 
-              <br />
+              {errorMessage && (
+                <p style={{ color: "red", marginBottom: "10px" }}>
+                  {errorMessage}
+                </p>
+              )}
               <button type="submit">Register</button>
             </form>
 
@@ -181,8 +198,9 @@ function StudentRegistration() {
             </span>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }

@@ -1,44 +1,76 @@
-import React from "react";
-import "../CssFolder/AdminDashboard.css";
-import Navpage from "./Navpage";
-import { Link } from "react-router-dom";
-import Footer from "./Footer";
+import React, { useEffect, useState } from "react";
+import "../CssFolder/Dashboard.css";
+import SideBar from "./SideBar";
+import { PiStudentFill } from "react-icons/pi";
+import { GiTeacher } from "react-icons/gi";
+import { IoBookOutline } from "react-icons/io5";
+import axios from "axios";
 
-function AdminDashboard({ adminName }) {
+function AdminDashboard() {
+  const [totalStudents, setTotalStudents] = useState(0);
+  const [totalTeachers, setTotalTeachers] = useState(0);
+  const [totalBooks, setTotalBooks] = useState(0);
+
+  // Total Students
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/student/findStudent/")
+      .then((response) => {
+        setTotalStudents(response.data.finddata.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // Total Teachers
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/teacher/findTeacher/")
+      .then((response) => {
+        setTotalTeachers(response.data.finddata.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // Total Books
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/book/findBook/")
+      .then((respose) => {
+        setTotalBooks(respose.data.finddata.length);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <>
-      <div className="maindivision">
-        <Navpage />
+      <SideBar />
+      <div className="dashboardDiv">
+        <h2>Admin Dashboard</h2>
 
-        <div className="homediv">
-          <div className="dashboard">
-            <h2>Welcome, {adminName ? adminName : "Admin"}</h2>
-            <button type="button">
-              <Link to="/addbook">Add Book</Link>
-            </button>
-            <button type="button">
-              <Link to="/bookdetails">Book Details</Link>
-            </button>
-            <button type="button">
-              <Link to="/studentlist">Student List</Link>
-            </button>
-            <button type="button">
-              <Link to="/teacherlist">Teacher List</Link>
-            </button>
-            <button type="button">
-              <Link to="/studentBookReq">Student BookRequests </Link>
-            </button>
-            <button type="button">
-              <Link to="/teacherBookReq">Teacher BookRequests </Link>
-            </button>
-       
-            <a href="/" className="goback">
-              Go Back
-            </a>
+        <div className="dashboardCardContainer">
+          <div className="dashboardIconDiv">
+            <PiStudentFill style={{ color: "#007bff", fontSize: "30px" }} />
+            <h4>Total Students</h4>
+            <p>{totalStudents}</p>
+          </div>
+
+          <div className="dashboardIconDiv">
+            <GiTeacher style={{ color: "#28a745", fontSize: "30px" }} />
+            <h4>Total Teachers</h4>
+            <p>{totalTeachers}</p>
+          </div>
+
+          <div className="dashboardIconDiv">
+            <IoBookOutline style={{ color: "#ffc107", fontSize: "30px" }} />
+            <h4>Total Books</h4>
+            <p>{totalBooks}</p>
           </div>
         </div>
-        
-        <Footer />
       </div>
     </>
   );

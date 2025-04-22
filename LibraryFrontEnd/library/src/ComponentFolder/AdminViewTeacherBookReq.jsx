@@ -1,39 +1,46 @@
 import { React, useState, useEffect } from "react";
-import { GiBookAura } from "react-icons/gi";
-import { Link } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import Footer from "./Footer";
 import axios from "axios";
-import Table from "react-bootstrap/Table";
 import { TiTick } from "react-icons/ti";
 import { TiDelete } from "react-icons/ti";
+import "../CssFolder/TableDetails.css";
+import SideBar from "./SideBar";
+import { toast } from "react-toastify";
 
 function AdminViewTeacherBookReq() {
   const [bookRequests, setBookRequests] = useState([]);
 
   useEffect(() => {
+    fetchBookRequests();
+  }, []);
+
+  const fetchBookRequests = () => {
     axios
-      .post("http://localhost:5000/findAllTeacherRequest")
+      .post("http://localhost:5000/teacherBookReqRoute/findAllTeacherRequest")
       .then((response) => {
-        setBookRequests(response.data.RequestBook);
-        console.log(response.data.RequestBook);
+        const allRequests = response.data.RequestBook || [];
+
+        //  Filter out returned books
+        const filteredRequests = allRequests.filter((req) => !req.returnDate);
+
+        setBookRequests(filteredRequests);
       })
       .catch((error) => {
         console.error("Error fetching book requests:", error);
       });
-  }, []);
+  };
 
   // Handle Status
   const handleStatusChange = (requestId, status) => {
     axios
-      .post("http://localhost:5000/teacherUpdateBookRequestStatus", {
-        requestId,
-        status,
-      })
+      .post(
+        "http://localhost:5000/teacherBookReqRoute/teacherUpdateBookRequestStatus",
+        {
+          requestId,
+          status,
+        }
+      )
       .then((response) => {
-        alert(response.data.message);
+        toast.success(response.data.message);
         setBookRequests((prevRequests) =>
           prevRequests.map((request) =>
             request._id === requestId
@@ -44,117 +51,89 @@ function AdminViewTeacherBookReq() {
       })
       .catch((error) => {
         console.error("Error updating status:", error);
-        alert("Failed to update status");
+        toast.error("Failed to update status");
       });
   };
 
   return (
     <>
-      <div className="maindivision">
-        {/* Navbar Code */}
-        <Navbar variant="dark" expand="lg" className="mainNav">
-          <Container fluid>
-            <Navbar.Brand className="navbarBrand">
-              <GiBookAura style={{ fontSize: 50, marginRight: "10px" }} />
-              <b> MyLibrary </b>
-            </Navbar.Brand>
+      <SideBar />
+      {/* Table Create To View All TeacherRequestBooks  */}
+      {bookRequests.length > 0 ? (
+        <>
+          <div className="tabledetails">
+            <h2>Teacher Book Request</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>TeacherName</th>
+                  <th>BookImage</th>
+                  <th>BookName</th>
+                  <th>RequestDate</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookRequests.map((request, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
 
-            {/* Responsive toggle */}
-            <Navbar.Toggle />
+                    <td>
+                      {request.teacherId ? request.teacherId.name : "Unknown"}
+                    </td>
+                    <td>
+                      <img
+                        src={`http://localhost:5000/${request.bookId?.image?.filename}`}
+                        alt="bookimg"
+                      />
+                    </td>
+                    <td>
+                      {request.bookId ? request.bookId.bookName : "Unknown"}
+                    </td>
+                    <td>
+                      {new Date(request.requestDate).toLocaleDateString()}
+                    </td>
 
-            <Navbar.Collapse className="navbarCollapse">
-              <Nav className="miniNav">
-                <Nav.Link as={Link} to="/admindashboard">
-                  BackToAdminDashBoard
-                </Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+                    <td>{request.status}</td>
+                    <td>
+                      {request.status === "Pending" && (
+                        <>
+                          <TiTick
+                            style={{ fontSize: "35px", color: "green" }}
+                            onClick={() =>
+                              handleStatusChange(request._id, "Approved")
+                            }
+                          />
 
-        {/* Table Create To View All TeacherRequestBooks  */}
-        {bookRequests.length > 0 ? (
-          <>
-            <div className="tablediv">
-              <Table>
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>TeacherName</th>
-                    <th>BookImage</th>
-                    <th>BookName</th>
-                    <th>RequestDate</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                          <TiDelete
+                            style={{ fontSize: "35px", color: "red" }}
+                            onClick={() =>
+                              handleStatusChange(request._id, "Rejected")
+                            }
+                          />
+                        </>
+                      )}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {bookRequests.map((request, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-
-                      <td>
-                        {request.teacherId ? request.teacherId.name : "Unknown"}
-                      </td>
-                      <td>
-                        <img
-                          src={`http://localhost:5000/${request.bookId?.image?.filename}`}
-                          alt="bookimg"
-                        />
-                      </td>
-                      <td>
-                        {request.bookId ? request.bookId.bookName : "Unknown"}
-                      </td>
-                      <td>
-                        {new Date(request.requestDate).toLocaleDateString()}
-                      </td>
-
-                      <td>{request.status}</td>
-                      <td>
-                        {request.status === "Pending" && (
-                          <>
-                            <button
-                              onClick={() =>
-                                handleStatusChange(request._id, "Approved")
-                              }
-                              className="btn btn-success"
-                            >
-                              <TiTick style={{ fontSize: "25px" }} />
-                            </button>
-                            <button
-                              onClick={() =>
-                                handleStatusChange(request._id, "Rejected")
-                              }
-                              className="btn btn-danger"
-                              style={{ marginLeft: "10px" }}
-                            >
-                              <TiDelete style={{ fontSize: "25px" }} />
-                            </button>
-                          </>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
-          </>
-        ) : (
-          <p
-            style={{
-              fontSize: 30,
-              textAlign: "center",
-              marginTop: "100px",
-              marginBottom: "100px",
-            }}
-          >
-            No BookRequests Found. Please Try Again!
-          </p>
-        )}
-        <Footer />
-
-        <Footer />
-      </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ) : (
+        <p
+          style={{
+            fontSize: 30,
+            textAlign: "center",
+            marginTop: "100px",
+            marginBottom: "100px",
+          }}
+        >
+          No BookRequests Found. Please Try Again!
+        </p>
+      )}
     </>
   );
 }

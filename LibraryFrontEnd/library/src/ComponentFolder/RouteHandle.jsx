@@ -33,6 +33,9 @@ import TeacherDashboard from "./TeacherDashboard";
 import OneTeacherProfile from "./OneTeacherProfile";
 import ViewTeacherProfile from "./ViewTeacherProfile";
 import TeacherViewAvailableBooks from "./TeacherViewAvailableBooks";
+import EditBook from "./EditBook";
+import StudentIssuedBook from "./StudentIssuedBook";
+import TeacherIssuedBook from "./TeacherIssuedBook";
 
 function RouteHandle() {
   return (
@@ -56,6 +59,7 @@ function RouteHandle() {
           <Route path="/teacherview/:id" element={<TeacherView />} />
           <Route path="/studentBookReq" element={<AdminViewStudentBookReq />} />
           <Route path="/teacherBookReq" element={<AdminViewTeacherBookReq />} />
+          <Route path="/editbook/:id" element={<EditBook />} />
 
           {/* Student Routes */}
           <Route path="/studentlogin" element={<StudentLogin />} />
@@ -73,6 +77,7 @@ function RouteHandle() {
             path="/studentViewAvailableBooks"
             element={<StudentViewAvailableBooks />}
           />
+          <Route path="/studentIssuedBook" element={<StudentIssuedBook />} />
 
           {/* Teacher Routes */}
           <Route path="/teacherlogin" element={<TeacherLogin />} />
@@ -88,6 +93,7 @@ function RouteHandle() {
             path="/teacherViewAvailableBooks"
             element={<TeacherViewAvailableBooks />}
           />
+          <Route path="/teacherIssuedBook" element={<TeacherIssuedBook />} />
         </Routes>
       </BrowserRouter>
     </>

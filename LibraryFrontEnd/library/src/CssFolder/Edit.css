@@ -1,4 +1,4 @@
-/* General Style */
+/* Reset and Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +7,8 @@
   cursor: pointer;
 }
 
-/* Add Book Container */
-.addbookdiv {
+/* Edit Form Container */
+.editDiv {
   width: 100%;
   max-width: 500px;
   margin: 10% auto;
@@ -18,18 +18,29 @@
   box-shadow: 0 4px 12px rgba(44, 62, 80, 0.6);
 }
 
-/* Heading */
-.addbookdiv h2 {
-  text-align: center;
-  margin-bottom: 30px;
+/* Book Image */
+.editDiv img {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  object-fit: fill;
+}
+
+/* Label Styling */
+.editDiv label {
+  display: block;
+  font-weight: 600;
+  /* margin-bottom: 10px; */
   color: #34495e;
-  font-weight: 700;
 }
 
 /* Input Fields */
-.addbookdiv input {
+.editDiv input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 5px;
   margin-bottom: 20px;
   border-radius: 6px;
@@ -39,15 +50,15 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Input Focus */
-.addbookdiv input:focus {
+/* Input Focus Effect */
+.editDiv input:focus {
   border-color: #2c3e50;
   outline: none;
   box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
 }
 
 /* Button */
-.addbookdiv button {
+.editDiv button {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
@@ -60,12 +71,12 @@
   transition: background-color 0.3s ease;
 }
 
-.addbookdiv button:hover {
+.editDiv button:hover {
   background-color: #1a252f;
 }
 
-/* Go Back Link */
-.addbookdiv a {
+/* Links */
+.editDiv a {
   display: inline-block;
   margin-top: 15px;
   text-align: center;
@@ -75,39 +86,38 @@
   font-weight: 500;
 }
 
-.addbookdiv a:hover {
+.editDiv a:hover {
   text-decoration: underline;
 }
 
 /* Responsive Styles */
 @media screen and (max-width: 992px) {
-  .addbookdiv {
+  .editDiv {
     margin-top: 10%;
     padding: 25px;
     max-width: 65%;
   }
 }
-@media screen and (max-width: 992px) {
-  .addbookdiv {
+@media screen and (max-width: 768px) {
+  .editDiv {
     margin-top: 15%;
     padding: 25px;
     max-width: 65%;
   }
 }
-
 @media screen and (max-width: 576px) {
-  .addbookdiv {
+  .editDiv {
     margin-top: 22%;
     padding: 20px;
     max-width: 95%;
   }
 
-  .addbookdiv label {
+  .editDiv label {
     font-size: 14px;
   }
 
-  .addbookdiv input,
-  .addbookdiv button {
+  .editDiv input,
+  .editDiv button {
     font-size: 15px;
   }
 }

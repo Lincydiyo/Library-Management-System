@@ -5,12 +5,14 @@ import "../CssFolder/Login.css";
 import { TbLogin2 } from "react-icons/tb";
 import axios from "axios";
 import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
 
 function StudentLogin() {
   const [studentLogin, setStudentLogin] = useState({
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,21 +24,33 @@ function StudentLogin() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/studentLogin", studentLogin)
+      .post("http://localhost:5000/student/studentLogin", studentLogin)
       .then((response) => {
         const id = response.data.data._id;
         const name = response.data.data.name;
+        const image = response.data.data.image.filename;
 
         localStorage.setItem("studentId", id);
         localStorage.setItem("studentName", name);
+        localStorage.setItem("studentImage", image);
 
-        alert(response.data.message);
-        navigate("/studentdashboard");
+        toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/studentdashboard");
+        }, 3000);
       })
 
       .catch((error) => {
-        console.log(error);
-        alert("Login Failed ❌. Please Check.");
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setErrorMessage(error.response.data.message);
+        } else {
+          setErrorMessage("Login failed. Please try again.");
+          toast.error("Login failed. Please try again.");
+        }
       });
   };
 
@@ -74,14 +88,14 @@ function StudentLogin() {
                   required
                 />
               </label>
-
+              {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <button type="submit">
                 Login <TbLogin2 style={{ fontSize: 25 }} />
               </button>
             </form>
             <div className="links">
               <span>
-                Do not have an account?{" "}
+                Do not have an account?
                 <a href="/studentregistration">SignUp here</a>
               </span>
               <Link to="/adminlogin" className="goback">
@@ -92,6 +106,7 @@ function StudentLogin() {
         </div>
         <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }
