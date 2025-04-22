@@ -24,7 +24,6 @@ const bookData = new mongoose.Schema({
     type: Object,
     required: true,
   },
-  
 });
 
 module.exports = new mongoose.model("books", bookData);

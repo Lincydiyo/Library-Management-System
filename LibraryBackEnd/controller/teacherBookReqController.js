@@ -1,54 +1,58 @@
-const BookRequest = require("../model/teacherBookReqSchema");
+const { TeacherBookRequest } = require("../model/index");
+const {
+  teacherBookReqValidations,
+} = require("../validations/teacherReq.validation");
 
 const teacherReq = (req, res) => {
   const { teacherId, bookId } = req.body;
-  if (!teacherId || !bookId) {
-    return res.status(400).json({
-      message: "Missing TeacherId Or BookId",
-    });
+  const { error } = teacherBookReqValidations.validate({ teacherId, bookId });
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
   }
 
-  //   Check if the Book already exists
-  BookRequest.findOne({ teacherId, bookId })
+  // Check if the Book already exists and is NOT returned
+  TeacherBookRequest.findOne({
+    teacherId,
+    bookId,
+    status: { $in: ["Pending", "Approved"] },
+    returnDate: null,
+  })
     .then((existingRequest) => {
       if (existingRequest) {
         return res.status(400).json({
-          message: "You Have Already Request This Book",
+          message: "You  have already request  this book.",
         });
       }
 
       // Create New Book Request
-
-      const newRequsest = new BookRequest({
+      const newRequsest = new TeacherBookRequest({
         teacherId,
         bookId,
+        status: "Pending",
+        requestDate: new Date(),
       });
       newRequsest
         .save()
-        .then(() => {
-          return res.status(200).json({
-            message: "Book Request Send To The Admin",
-          });
+        .then((savedRequest) => {
+          if (savedRequest) {
+            return res.status(200).json({
+              message: "Book request sent to the admin.",
+            });
+          }
         })
         .catch((error) => {
           return res.status(500).json({
-           
-            error,
+            message: "Server error while requesting book",
+            error: error.message,
           });
         });
     })
-    .catch((error) => {
-      return res.status(500).json({
-        message: "Error checking for existing Books",
-        error,
-      });
-    });
+   
 };
-
 // Find All Teachers Requests
 
 const findAllTeacherReq = (req, res) => {
-  BookRequest.find({})
+  TeacherBookRequest.find({})
     .populate("teacherId bookId")
     .then((response) => {
       return res.status(200).json({
@@ -79,7 +83,7 @@ const teacherUpdateBookRequestStatus = (req, res) => {
   }
 
   // Find the request by ID and update the status
-  BookRequest.findByIdAndUpdate(requestId, { status }, { new: true })
+  TeacherBookRequest.findByIdAndUpdate(requestId, { status }, { new: true })
     .then((updatedRequest) => {
       if (!updatedRequest) {
         return res.status(404).json({ message: "Book request not found" });
@@ -95,5 +99,89 @@ const teacherUpdateBookRequestStatus = (req, res) => {
     });
 };
 
+// Find Particular person issued book
 
-module.exports = { teacherReq, findAllTeacherReq ,teacherUpdateBookRequestStatus};
+const findParticularTeacherRequests = (req, res) => {
+  const { teacherId } = req.body;
+
+  if (!teacherId) {
+    return res.status(400).json({ message: "Teacher ID is required" });
+  }
+
+  TeacherBookRequest.find({ teacherId })
+    .populate("teacherId bookId")
+    .then((response) => {
+      const updatedRequests = response.map((req) => {
+        if (req.status === "Approved" && !req.returnDate) {
+          const today = new Date();
+          const issueDate = new Date(req.requestDate);
+          const diffDays = Math.ceil(
+            (today - issueDate) / (1000 * 60 * 60 * 24)
+          );
+          req.fine = diffDays > 1 ? (diffDays - 1) * 10 : 0;
+        }
+        return req;
+      });
+
+      return res.status(200).json({ RequestBook: updatedRequests });
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        message: "Error fetching teacher's book requests",
+        error: error.message,
+      });
+    });
+};
+// Return Book
+const returnBook = (req, res) => {
+  const { requestId } = req.body;
+
+  if (!requestId) {
+    return res.status(400).json({ message: "Request ID is required" });
+  }
+
+  TeacherBookRequest.findById(requestId)
+    .then((request) => {
+      if (!request) {
+        return res.status(404).json({ message: "Book request not found" });
+      }
+
+      if (request.returnDate) {
+        return res.status(400).json({ message: "Book already returned" });
+      }
+
+      if (request.status !== "Approved") {
+        return res
+          .status(400)
+          .json({ message: "Only approved books can be returned" });
+      }
+
+      const today = new Date();
+      const issueDate = new Date(
+        request.requestDate || request.createdAt || today
+      );
+      const diffDays = Math.ceil((today - issueDate) / (1000 * 60 * 60 * 24));
+      const fine = diffDays > 1 ? (diffDays - 1) * 10 : 0;
+
+      request.returnDate = today;
+      request.fine = fine;
+
+      return request.save();
+    })
+    .then((updatedRequest) => {
+      res
+        .status(200)
+        .json({ message: "Book returned successfully", updatedRequest });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Error returning book", error });
+    });
+};
+
+module.exports = {
+  teacherReq,
+  findAllTeacherReq,
+  teacherUpdateBookRequestStatus,
+  findParticularTeacherRequests,
+  returnBook,
+};

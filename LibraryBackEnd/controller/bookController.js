@@ -1,4 +1,4 @@
-const bookController = require("../model/bookSchema");
+const {BookController} = require("../model/index");
 const multer = require("multer");
 
 // Multer
@@ -18,7 +18,7 @@ const bookRegister = (req, res) => {
   console.log(req.file);
   console.log(req.body);
 
-  const data = new bookController({
+  const data = new BookController({
     bookName: req.body.bookName,
     authorName: req.body.authorName,
     price: req.body.price,
@@ -42,7 +42,7 @@ const bookRegister = (req, res) => {
 
 // FindBook
 const findBook = (req, res) => {
-  bookController
+  BookController
     .find({})
     .then((response) => {
       return res.status(200).json({
@@ -59,7 +59,7 @@ const findBook = (req, res) => {
 // FindOneBook
 const findOneBook = (req, res) => {
   const id = req.params.id;
-  bookController
+  BookController
     .findOne({ _id: id })
     .then((response) => {
       return res.status(200).json({
@@ -79,7 +79,7 @@ const deleteBook = (req, res) => {
   const id = req.params.id;
   const { bookName, authorName, price, description, published, image } =
     req.body;
-  bookController
+  BookController
     .findByIdAndDelete(
       { _id: id },
       {
@@ -104,4 +104,32 @@ const deleteBook = (req, res) => {
     });
 };
 
-module.exports = { bookRegister, findBook, deleteBook, upload, findOneBook };
+// Update Book
+const updateBook = (req, res) => {
+  const id = req.params.id;
+  const { bookName, authorName, price, description, published, image } =
+    req.body;
+    BookController
+    .findByIdAndUpdate(
+      { _id: id },
+      {
+        bookName: bookName,
+        authorName: authorName,
+        price: price,
+        description: description,
+        published: published,
+        image: image,
+      },
+      { new: true }
+    )
+    .then((response) => {
+      res.status(200).json({
+        update: response,
+        message: "Book Details Updated Successfully.",
+      });
+    })
+    .catch((error) => {
+      error;
+    });
+};
+module.exports = { bookRegister, findBook, deleteBook, upload, findOneBook ,updateBook};

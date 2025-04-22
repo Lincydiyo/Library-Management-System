@@ -1,4 +1,4 @@
-const studentController = require("../model/studentSchema");
+const { StudentController } = require("../model/index");
 const multer = require("multer");
 
 // Multer
@@ -12,17 +12,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single("image");
 
-
 // Student SignUp
 
 const studentSignUp = (req, res) => {
   console.log(req.file);
 
-  const data = new studentController({
+  const data = new StudentController({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    image:req.file,
+    image: req.file,
     dob: req.body.dob,
     department: req.body.department,
     phoneno: req.body.phoneno,
@@ -30,35 +29,33 @@ const studentSignUp = (req, res) => {
   });
   data
     .save()
-    .then((response) => {
+    .then(() => {
       res.status(200).json({
         message: "Student Register successfully",
       });
     })
-    .catch(() => {
-      res.status(500).json({
-        message: "Student Register failed",
-      });
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Student Registration Failed" });
     });
 };
 
 // Student Login
 const studentLogin = (req, res) => {
   const { email, password } = req.body;
-  studentController
-    .findOne({ email })
+  StudentController.findOne({ email })
     .then((student) => {
       if (!student) {
         return res.status(404).json({
-          message: "Incorrect Email",
+          message: " Email Id is Incorrect",
         });
       } else if (password !== student.password) {
         return res.status(404).json({
-          message: "Incorrect Password",
+          message: " Password is Incorrect",
         });
       } else {
         return res.status(200).json({
-          message: "Login Successful 🎉",
+          message: "Login Successful ",
           data: student,
         });
       }
@@ -72,8 +69,7 @@ const studentLogin = (req, res) => {
 
 // FindStudents
 const findStudent = (req, res) => {
-  studentController
-    .find({})
+  StudentController.find({})
     .then((response) => {
       res.status(200).json({
         finddata: response,
@@ -89,23 +85,22 @@ const findStudent = (req, res) => {
 // DeleteStudents
 const deleteStudent = (req, res) => {
   const id = req.params.id;
-  const { name, email, password,image, dob, department, phoneno, semester } =
+  const { name, email, password, image, dob, department, phoneno, semester } =
     req.body;
-  studentController
-    .findByIdAndDelete(
-      { _id: id },
-      {
-        name: name,
-        email: email,
-        password: password,
-        image:image,
-        dob: dob,
-        department: department,
-        phoneno: phoneno,
-        semester: semester,
-      },
-      { new: true }
-    )
+  StudentController.findByIdAndDelete(
+    { _id: id },
+    {
+      name: name,
+      email: email,
+      password: password,
+      image: image,
+      dob: dob,
+      department: department,
+      phoneno: phoneno,
+      semester: semester,
+    },
+    { new: true }
+  )
     .then((response) => {
       res.status(200).json({
         delete: response,
@@ -121,8 +116,7 @@ const deleteStudent = (req, res) => {
 // FindOneStudent
 const findOneStudent = (req, res) => {
   const id = req.params.id;
-  studentController
-    .findOne({ _id: id })
+  StudentController.findOne({ _id: id })
     .then((response) => {
       res.status(200).json({
         finddata: response,
@@ -138,23 +132,22 @@ const findOneStudent = (req, res) => {
 // UpdateStudent
 const updateStudent = (req, res) => {
   const id = req.params.id;
-  const { name, email, password,image, dob, department, phoneno, semester } =
+  const { name, email, password, image, dob, department, phoneno, semester } =
     req.body;
-  studentController
-    .findByIdAndUpdate(
-      { _id: id },
-      {
-        name: name,
-        email: email,
-        password: password,
-        image:image,
-        dob: dob,
-        department: department,
-        phoneno: phoneno,
-        semester: semester,
-      },
-      { new: true }
-    )
+  StudentController.findByIdAndUpdate(
+    { _id: id },
+    {
+      name: name,
+      email: email,
+      password: password,
+      image: image,
+      dob: dob,
+      department: department,
+      phoneno: phoneno,
+      semester: semester,
+    },
+    { new: true }
+  )
     .then((response) => {
       res.status(200).json({
         update: response,
@@ -166,7 +159,6 @@ const updateStudent = (req, res) => {
     });
 };
 
-
 module.exports = {
   studentSignUp,
   studentLogin,
@@ -174,5 +166,5 @@ module.exports = {
   deleteStudent,
   findOneStudent,
   updateStudent,
-  upload
+  upload,
 };

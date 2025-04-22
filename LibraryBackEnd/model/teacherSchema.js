@@ -2,27 +2,27 @@ const mongoose = require("mongoose");
 const teacherData = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   image: {
     type: Object,
-    require: true,
+    required: true,
   },
   department: {
     type: String,
-    require: true,
+    required: true,
   },
   phoneno: {
     type: Number,
-    require: true,
+    required: true,
   },
 
 });

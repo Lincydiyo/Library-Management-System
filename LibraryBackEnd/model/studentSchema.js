@@ -22,7 +22,7 @@ const studentData = new mongoose.Schema({
   },
   department: {
     type: String,
-    require: true,
+    required: true,
   },
   phoneno: {
     type: Number,

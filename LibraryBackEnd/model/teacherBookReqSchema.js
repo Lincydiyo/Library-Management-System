@@ -11,14 +11,23 @@ const TeacherBookRequest = new mongoose.Schema({
     ref: "teachers",
     required: true,
   },
-  requestDate: {
-    type: Date,
-    default: Date.now,
-  },
+
   status: {
     type: String,
     enum: ["Pending", "Approved", "Rejected"],
     default: "Pending",
+  },
+  requestDate: {
+    type: Date,
+    default: Date.now,
+  },
+  returnDate: {
+    type: Date,
+    default: null,
+  },
+  fine: {
+    type: Number,
+    default: 0,
   },
 });
 

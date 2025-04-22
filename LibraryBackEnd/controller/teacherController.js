@@ -1,4 +1,4 @@
-const teacherController = require("../model/teacherSchema");
+const { TeacherController } = require("../model/index");
 const multer = require("multer");
 
 // Multer
@@ -14,7 +14,7 @@ const upload = multer({ storage: storage }).single("image");
 
 // Teacher SignUp
 const teacherSignUp = (req, res) => {
-  const data = new teacherController({
+  const data = new TeacherController({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
@@ -24,35 +24,33 @@ const teacherSignUp = (req, res) => {
   });
   data
     .save()
-    .then((response) => {
+    .then(() => {
       res.status(200).json({
         message: "Teacher Register successfully",
       });
     })
-    .catch(() => {
-      res.status(500).json({
-        message: "Teacher Register failed",
-      });
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Teacher Registration Failed" });
     });
 };
 
 // Teacher Login
 const teacherLogin = (req, res) => {
   const { email, password } = req.body;
-  teacherController
-    .findOne({ email })
+  TeacherController.findOne({ email })
     .then((teacher) => {
       if (!teacher) {
         return res.status(404).json({
-          message: "Incorrect Email",
+          message: " Email Id is Incorrect",
         });
       } else if (password !== teacher.password) {
         return res.status(404).json({
-          message: "Incorrect Password",
+          message: " Password is Incorrect",
         });
       } else {
         return res.status(200).json({
-          message: "Login Successful 🎉",
+          message: "Login Successful ",
           data: teacher,
         });
       }
@@ -66,8 +64,7 @@ const teacherLogin = (req, res) => {
 
 // FindTeacher
 const findTeacher = (req, res) => {
-  teacherController
-    .find({})
+  TeacherController.find({})
     .then((response) => {
       res.status(200).json({
         finddata: response,
@@ -84,19 +81,18 @@ const findTeacher = (req, res) => {
 const deleteTeacher = (req, res) => {
   const id = req.params.id;
   const { name, email, password, image, department, phoneno } = req.body;
-  teacherController
-    .findByIdAndDelete(
-      { _id: id },
-      {
-        name: name,
-        email: email,
-        password: password,
-        image: image,
-        department: department,
-        phoneno: phoneno,
-      },
-      { new: true }
-    )
+  TeacherController.findByIdAndDelete(
+    { _id: id },
+    {
+      name: name,
+      email: email,
+      password: password,
+      image: image,
+      department: department,
+      phoneno: phoneno,
+    },
+    { new: true }
+  )
     .then((response) => {
       res.status(200).json({
         delete: response,
@@ -112,8 +108,7 @@ const deleteTeacher = (req, res) => {
 // FindOneTeacher
 const findOneTeacher = (req, res) => {
   const id = req.params.id;
-  teacherController
-    .findOne({ _id: id })
+  TeacherController.findOne({ _id: id })
     .then((response) => {
       res.status(200).json({
         finddata: response,
@@ -130,19 +125,18 @@ const findOneTeacher = (req, res) => {
 const updateTeacher = (req, res) => {
   const id = req.params.id;
   const { name, email, password, image, department, phoneno } = req.body;
-  teacherController
-    .findByIdAndUpdate(
-      { _id: id },
-      {
-        name: name,
-        email: email,
-        password: password,
-        image: image,
-        department: department,
-        phoneno: phoneno,
-      },
-      { new: true }
-    )
+  TeacherController.findByIdAndUpdate(
+    { _id: id },
+    {
+      name: name,
+      email: email,
+      password: password,
+      image: image,
+      department: department,
+      phoneno: phoneno,
+    },
+    { new: true }
+  )
     .then((response) => {
       res.status(200).json({
         update: response,
@@ -153,7 +147,6 @@ const updateTeacher = (req, res) => {
       error;
     });
 };
-
 
 module.exports = {
   teacherSignUp,
