@@ -15,7 +15,7 @@ function OneStudentProfile() {
   //   FindOneStudent
   const OneStudent = () => {
     axios
-      .post("http://localhost:5000/student/findOneStudent/" + id)
+      .post("http://localhost:5000/user/findOneStudent/" + id)
       .then((response) => {
         setOneStudent(response.data.finddata);
         setUpdateStudent(response.data.finddata);
@@ -32,7 +32,7 @@ function OneStudentProfile() {
   // HandleUpdate
   const updateHandle = () => {
     axios
-      .post("http://localhost:5000/student/updateStudent/" + id, updateStudent)
+      .post(`http://localhost:5000/user/updateUser/${id}`, updateStudent)
       .then((response) => {
         toast.success(response.data.message);
         setUpdateStudent(response.data.update);
@@ -121,7 +121,7 @@ function OneStudentProfile() {
           <label htmlFor="phoneno">PhoneNumber : </label>
 
           <input
-            type="number"
+            type="text"
             defaultValue={oneStudent.phoneno}
             id="phoneno"
             name="phoneno"

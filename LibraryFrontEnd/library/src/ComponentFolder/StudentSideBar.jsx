@@ -21,6 +21,7 @@ function StudentSideBar() {
     localStorage.removeItem("studentId");
     localStorage.removeItem("studentName");
     localStorage.removeItem("studentImage");
+    localStorage.removeItem("token");
     navigate("/studentlogin");
   };
   return (

@@ -13,7 +13,7 @@ function StudentView() {
 
   const findOneStudent = () => {
     axios
-      .post("http://localhost:5000/student/findOneStudent/" + id)
+      .post("http://localhost:5000/user/findOneStudent/" + id)
       .then((response) => {
         setOneStudent(response.data.finddata);
       })

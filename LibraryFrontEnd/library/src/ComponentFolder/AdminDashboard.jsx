@@ -14,7 +14,7 @@ function AdminDashboard() {
   // Total Students
   useEffect(() => {
     axios
-      .post("http://localhost:5000/student/findStudent/")
+      .post("http://localhost:5000/user/findStudents/")
       .then((response) => {
         setTotalStudents(response.data.finddata.length);
       })
@@ -26,7 +26,7 @@ function AdminDashboard() {
   // Total Teachers
   useEffect(() => {
     axios
-      .post("http://localhost:5000/teacher/findTeacher/")
+      .post("http://localhost:5000/user/findTeachers/")
       .then((response) => {
         setTotalTeachers(response.data.finddata.length);
       })

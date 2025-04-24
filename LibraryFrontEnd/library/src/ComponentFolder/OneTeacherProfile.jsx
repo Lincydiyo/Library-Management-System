@@ -15,7 +15,7 @@ function OneTeacherProfile() {
   // FindOneTeacher
   const OneTeacher = () => {
     axios
-      .post("http://localhost:5000/teacher/findOneTeacher/" + id)
+      .post("http://localhost:5000/user/findOneTeacher/" + id)
       .then((response) => {
         setOneTeacher(response.data.finddata);
         setUpdateTeacher(response.data.finddata);
@@ -32,7 +32,7 @@ function OneTeacherProfile() {
   // HandleUpdate
   const updateHandle = () => {
     axios
-      .post("http://localhost:5000/teacher/updateTeacher/" + id, updateTeacher)
+      .post(`http://localhost:5000/user/updateUser/${id}`, updateTeacher)
       .then((response) => {
         toast.success(response.data.message);
         setUpdateTeacher(response.data.update);

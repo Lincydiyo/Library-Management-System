@@ -24,15 +24,16 @@ function StudentLogin() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/student/studentLogin", studentLogin)
+      .post("http://localhost:5000/user/login", {
+        ...studentLogin,
+        role: "student",
+      })
       .then((response) => {
-        const id = response.data.data._id;
-        const name = response.data.data.name;
-        const image = response.data.data.image.filename;
-
-        localStorage.setItem("studentId", id);
+        const { _id, name, image, token } = response.data.data;
+        localStorage.setItem("studentId", _id);
         localStorage.setItem("studentName", name);
-        localStorage.setItem("studentImage", image);
+        localStorage.setItem("studentImage", image.filename);
+        localStorage.setItem("token", token);
 
         toast.success(response.data.message);
         setTimeout(() => {

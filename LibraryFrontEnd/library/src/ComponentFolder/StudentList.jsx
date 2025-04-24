@@ -15,7 +15,7 @@ function StudentList() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/student/findStudent/")
+      .post("http://localhost:5000/user/findStudents/")
       .then((response) => {
         setAllData(response.data.finddata);
       })
@@ -31,7 +31,7 @@ function StudentList() {
   //   Delete Student Details
   const deleteStudent = (id) => {
     axios
-      .post("http://localhost:5000/student/deleteStudent/" + id)
+      .post("http://localhost:5000/user/deleteUser/" + id)
       .then(() => {
         setAllData(alldata.filter((student) => student._id !== id));
         toast.success("Student Data Deleted Successfully!");
@@ -97,7 +97,12 @@ function StudentList() {
           </table>
         </div>
       ) : (
-        <p className="no-data-message">
+        <p   style={{
+          fontSize: 30,
+          textAlign: "center",
+          marginTop: "100px",
+          marginBottom: "100px",
+        }}>
           No Students Details Found. Please Try Again!
         </p>
       )}

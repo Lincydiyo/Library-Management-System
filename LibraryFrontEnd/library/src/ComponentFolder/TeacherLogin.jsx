@@ -22,15 +22,20 @@ function TeacherLogin() {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/teacher/teacherLogin", teacherLogin)
+      .post("http://localhost:5000/user/login", {
+        ...teacherLogin,
+        role: "teacher",
+      })
       .then((response) => {
-        const id = response.data.data._id;
-        const name = response.data.data.name;
-        const image = response.data.data.image.filename;
-        localStorage.setItem("teacherId", id);
+        const { _id, name, image, token } = response.data.data;
+        // const id = response.data.data._id;
+        // const name = response.data.data.name;
+        // const image = response.data.data.image.filename;
+        localStorage.setItem("teacherId", _id);
         localStorage.setItem("teacherName", name);
-        localStorage.setItem("teacherImage", image);
-
+        localStorage.setItem("teacherImage", image.filename);
+        localStorage.setItem("token", token)
+        
         // console.log("teacher", id);
 
         toast.success(response.data.message);

@@ -35,6 +35,7 @@ function StudentRegistration() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("role", "student");
     formData.append("name", studentSignup.name);
     formData.append("email", studentSignup.email);
     formData.append("password", studentSignup.password);
@@ -45,7 +46,7 @@ function StudentRegistration() {
     formData.append("phoneno", studentSignup.phoneno);
 
     axios
-      .post("http://localhost:5000/student/studentSignup/", formData)
+      .post("http://localhost:5000/user/signup", formData)
       .then((response) => {
         toast.success(response.data.message);
         setTimeout(() => {
@@ -126,7 +127,6 @@ function StudentRegistration() {
               <label>
                 Date of Birth
                 <input
-                  // type="date"
                   type="date"
                   placeholder="Enter Date of Birth"
                   name="dob"

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MdOutlineAutoDelete } from "react-icons/md";
 import "../CssFolder/TableDetails.css";
 import SideBar from "./SideBar";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function TeacherList() {
   const [alldata, setAllData] = useState([]);
@@ -13,7 +13,7 @@ function TeacherList() {
   //   BackEnd Data Connect to View All Teacher Details on the Page loading time
   useEffect(() => {
     axios
-      .post("http://localhost:5000/teacher/findTeacher/")
+      .post("http://localhost:5000/user/findTeachers/")
       .then((response) => {
         setAllData(response.data.finddata);
       })
@@ -30,7 +30,7 @@ function TeacherList() {
   //   Delete Teacher Details
   const deleteTeacher = (id) => {
     axios
-      .post("http://localhost:5000/teacher/deleteTeacher/" + id)
+      .post("http://localhost:5000/user/deleteUser/" + id)
       .then(() => {
         setAllData(alldata.filter((teacher) => teacher._id !== id));
         toast.success("Teacher Data Deleted Successfully");

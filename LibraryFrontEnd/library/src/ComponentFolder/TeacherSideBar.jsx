@@ -22,6 +22,7 @@ function TeacherSideBar() {
     localStorage.removeItem("teacherId");
     localStorage.removeItem("teacherName");
     localStorage.removeItem("teacherImage");
+    localStorage.removeItem("token");
     navigate("/teacherlogin");
   };
 

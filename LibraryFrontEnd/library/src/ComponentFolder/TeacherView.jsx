@@ -13,7 +13,7 @@ function TeacherView() {
 
   const findOneTeacher = () => {
     axios
-      .post("http://localhost:5000/teacher/findOneTeacher/" + id)
+      .post(`http://localhost:5000/user/findOneTeacher/${id}`)
       .then((response) => {
         setOneTeacher(response.data.finddata);
       })

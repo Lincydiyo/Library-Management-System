@@ -31,6 +31,7 @@ function TeacherSignUp() {
   const handleLogin = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    formData.append("role", "teacher");
     formData.append("name", teachersignup.name);
     formData.append("email", teachersignup.email);
     formData.append("password", teachersignup.password);
@@ -39,7 +40,7 @@ function TeacherSignUp() {
     formData.append("phoneno", teachersignup.phoneno);
 
     axios
-      .post("http://localhost:5000/teacher/teacherSignup/", formData)
+      .post("http://localhost:5000/user/signup", formData)
       .then((response) => {
         toast.success(response.data.message);
         setTimeout(() => {

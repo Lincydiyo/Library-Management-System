@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import "../CssFolder/ViewAvailableBooks.css";
 import StudentSideBar from "./StudentSideBar";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function StudentViewAvailableBooks() {
   const [allBooks, setAllBooks] = useState([]);
@@ -117,7 +117,6 @@ function StudentViewAvailableBooks() {
           No Books Available. Please Try Again!
         </p>
       )}
-      <ToastContainer />
     </>
   );
 }

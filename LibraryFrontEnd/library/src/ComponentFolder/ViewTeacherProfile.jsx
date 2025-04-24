@@ -14,7 +14,7 @@ function ViewTeacherProfile() {
   //  Fetch OneTeacherData from the backend
   useEffect(() => {
     axios
-      .post("http://localhost:5000/teacher/findOneTeacher/" + id)
+      .post("http://localhost:5000/user/findOneTeacher/" + id)
       .then((response) => {
         setProfile(response.data.finddata);
       })
