@@ -8,7 +8,7 @@ const TeacherBookRequest = new mongoose.Schema({
   },
   teacherId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "teachers",
+    ref: "User",
     required: true,
   },
 

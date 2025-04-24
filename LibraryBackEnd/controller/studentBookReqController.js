@@ -1,4 +1,5 @@
 const { StudentBookRequest } = require("../model/index");
+
 const {
   studentBookReqValidations,
 } = require("../validations/studentReq.validation");
@@ -19,18 +20,18 @@ const studentReq = (req, res) => {
   }).then((existingRequest) => {
     if (existingRequest) {
       return res.status(400).json({
-        message: "You  have already request  this book.",
+        message: "You  have already requested  this book.",
       });
     }
 
     // Create New Book Request
-    const newRequsest = new StudentBookRequest({
+    const newRequest = new StudentBookRequest({
       studentId,
       bookId,
       status: "Pending",
       requestDate: new Date(),
     });
-    newRequsest
+    newRequest
       .save()
       .then((savedRequest) => {
         if (savedRequest) {

@@ -1,14 +1,12 @@
 const BookController=require("./bookSchema");
-const StudentController=require("./studentSchema");
-const TeacherController=require("./teacherSchema");
+const User=require("./userSchema")
 const StudentBookRequest=require("./studentBookReqSchema");
 const TeacherBookRequest=require("./teacherBookReqSchema");
 
 
 module.exports={
     BookController,
-    StudentController,
-    TeacherController,
+    User,
     StudentBookRequest,
     TeacherBookRequest
 }
