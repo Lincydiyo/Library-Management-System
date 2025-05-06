@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-const User = require("../model/userSchema");
+const User = require("../model/userModel");
 
 // Environment variables
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";

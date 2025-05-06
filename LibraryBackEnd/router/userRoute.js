@@ -7,8 +7,6 @@ const {
   registerTeacherSchema,
   loginStudentSchema,
   loginTeacherSchema,
-  updateStudentSchema,
-  updateTeacherSchema,
 } = require("../validations/user.validation");
 
 route.post(
@@ -56,5 +54,7 @@ route.post("/findTeachers", userController.findTeachers);
 route.post("/findOneStudent/:id", userController.findOneStudent);
 route.post("/findOneTeacher/:id", userController.findOneTeacher);
 route.post("/deleteUser/:id", userController.deleteUser);
+route.post("/forgotpassword", userController.forgotPassword);
+route.post("/resetpassword/:id/:token", userController.resetPassword);
 
 module.exports = route;
