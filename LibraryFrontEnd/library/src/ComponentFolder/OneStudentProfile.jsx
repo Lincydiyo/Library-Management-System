@@ -88,21 +88,16 @@ function OneStudentProfile() {
             autoComplete="on"
             onChange={changeValue}
           />
-          <label htmlFor="password">Password: </label>
 
-          <input
-            type="text"
-            defaultValue={oneStudent.password}
-            id="password"
-            name="password"
-            autoComplete="on"
-            onChange={changeValue}
-          />
           <label htmlFor="dob">DOB : </label>
 
           <input
             type="date"
-            defaultValue={oneStudent.dob}
+            defaultValue={
+              oneStudent.dob
+                ? new Date(oneStudent.dob).toISOString().split("T")[0]
+                : ""
+            }
             id="dob"
             name="dob"
             autoComplete="on"

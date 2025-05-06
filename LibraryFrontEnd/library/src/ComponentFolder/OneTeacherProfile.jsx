@@ -87,17 +87,7 @@ function OneTeacherProfile() {
               onChange={changeValue}
             />
           </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="text"
-              defaultValue={oneTeacher.password}
-              id="password"
-              name="password"
-              autoComplete="on"
-              onChange={changeValue}
-            />
-          </label>
+
           <label htmlFor="department">
             Department:
             <input

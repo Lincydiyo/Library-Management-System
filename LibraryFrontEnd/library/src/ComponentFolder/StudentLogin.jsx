@@ -99,8 +99,9 @@ function StudentLogin() {
                 Do not have an account?
                 <a href="/studentregistration">SignUp here</a>
               </span>
-              <Link to="/adminlogin" className="goback">
-                Admin Login
+
+              <Link to="/studentforgotpassword" className="goback">
+                Forgot password
               </Link>
             </div>
           </div>

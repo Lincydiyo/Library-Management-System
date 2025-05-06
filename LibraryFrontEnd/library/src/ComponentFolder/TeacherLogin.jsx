@@ -28,15 +28,11 @@ function TeacherLogin() {
       })
       .then((response) => {
         const { _id, name, image, token } = response.data.data;
-        // const id = response.data.data._id;
-        // const name = response.data.data.name;
-        // const image = response.data.data.image.filename;
+
         localStorage.setItem("teacherId", _id);
         localStorage.setItem("teacherName", name);
         localStorage.setItem("teacherImage", image.filename);
-        localStorage.setItem("token", token)
-        
-        // console.log("teacher", id);
+        localStorage.setItem("token", token);
 
         toast.success(response.data.message);
         setTimeout(() => {
@@ -100,8 +96,8 @@ function TeacherLogin() {
               <span>
                 Do not have an account? <a href="/teachersignup">SignUp here</a>
               </span>
-              <Link to="/adminlogin" className="goback">
-                Admin Login
+              <Link to="/teacherforgotpassword" className="goback">
+                Forgot password
               </Link>
             </div>
           </div>

@@ -36,6 +36,10 @@ import TeacherViewAvailableBooks from "./TeacherViewAvailableBooks";
 import EditBook from "./EditBook";
 import StudentIssuedBook from "./StudentIssuedBook";
 import TeacherIssuedBook from "./TeacherIssuedBook";
+import TeacherForgotPassword from "./TeacherForgotPassword";
+import StudentForgotPassword from "./StudentForgotPassword";
+import StudentResetPassword from "./StudentResetPassword";
+import TeacherResetPassword from "./TeacherResetPassword";
 
 function RouteHandle() {
   return (
@@ -78,6 +82,14 @@ function RouteHandle() {
             element={<StudentViewAvailableBooks />}
           />
           <Route path="/studentIssuedBook" element={<StudentIssuedBook />} />
+          <Route
+            path="/studentforgotpassword"
+            element={<StudentForgotPassword />}
+          />
+          <Route
+            path="/studentresetpassword/:id/:token"
+            element={<StudentResetPassword />}
+          />
 
           {/* Teacher Routes */}
           <Route path="/teacherlogin" element={<TeacherLogin />} />
@@ -94,6 +106,14 @@ function RouteHandle() {
             element={<TeacherViewAvailableBooks />}
           />
           <Route path="/teacherIssuedBook" element={<TeacherIssuedBook />} />
+          <Route
+            path="/teacherforgotpassword"
+            element={<TeacherForgotPassword />}
+          />
+          <Route
+            path="/teacherresetpassword/:id/:token"
+            element={<TeacherResetPassword />}
+          />
         </Routes>
       </BrowserRouter>
     </>
