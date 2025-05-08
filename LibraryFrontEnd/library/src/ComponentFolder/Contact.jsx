@@ -11,13 +11,39 @@ function Contact() {
         <div className="homediv">
           <div className="contactdiv">
             <h2>Send Us Your Valuable Feedback !</h2>
-            <input type="text" placeholder="Your Name" />
+            <input
+              type="text"
+              name="name"
+              id="name"
+              autoComplete="on"
+              required="true"
+              placeholder="Your Name"
+            />
             <br />
-            <input type="email" placeholder="Your Email" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autoComplete="on"
+              required="true"
+              placeholder="Your Email"
+            />
             <br />
-            <input type="text" placeholder="PhoneNumber" />
+            <input
+              type="number"
+              id="number"
+              name="number"
+              autoComplete="on"
+              required="true"
+              placeholder="Phone Number"
+            />
             <br />
-            <textarea name="textarea" placeholder="Your Message"></textarea>
+            <textarea
+              name="textarea"
+              autoComplete="on"
+              required="true"
+              placeholder="Your Message"
+            ></textarea>
             <br />
             <button type="button">Send Message</button>
             <a href="/" className="goback">
@@ -25,7 +51,7 @@ function Contact() {
             </a>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

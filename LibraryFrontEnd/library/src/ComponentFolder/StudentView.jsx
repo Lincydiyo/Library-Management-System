@@ -35,7 +35,7 @@ function StudentView() {
               <Card.Img
                 variant="top"
                 src={`http://localhost:5000/${oneStudent?.image?.filename}`}
-              />{" "}
+              />
             </Col>
             <Col xs={12} md={7} lg={7} className="Cardbody">
               <Card.Body>

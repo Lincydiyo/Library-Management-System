@@ -15,7 +15,6 @@ function TeacherSignUp() {
     department: "",
     phoneno: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -42,18 +41,13 @@ function TeacherSignUp() {
     axios
       .post("http://localhost:5000/user/signup", formData)
       .then((response) => {
-        toast.success(response.data.message);
-        setTimeout(() => {
-          navigate("/teacherlogin");
-        }, 3000);
+        toast.success(response.data.message, {
+          onClose: () => navigate("/teacherlogin"),
+        });
       })
       .catch((error) => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          setErrorMessage(error.response.data.message);
+        if (error.response?.data?.message) {
+          toast.error(error.response.data.message);
         } else {
           toast.error("Registration failed. Please try again.");
         }
@@ -110,6 +104,7 @@ function TeacherSignUp() {
                   type="file"
                   name="image"
                   id="image"
+                  accept="image/*"
                   onChange={handleChange}
                   required
                   className="fileInput"
@@ -139,12 +134,8 @@ function TeacherSignUp() {
                   onChange={handleChange}
                   required
                 />
-              </label>{" "}
-              {errorMessage && (
-                <p style={{ color: "red", marginBottom: "10px" }}>
-                  {errorMessage}
-                </p>
-              )}
+              </label>
+
               <button type="submit"> SignUp </button>
               <span>
                 Already have an account? <a href="/teacherlogin">Login here</a>
@@ -152,9 +143,9 @@ function TeacherSignUp() {
             </form>
           </div>
         </div>
+        <ToastContainer />
         <Footer />
       </div>
-      <ToastContainer />
     </>
   );
 }

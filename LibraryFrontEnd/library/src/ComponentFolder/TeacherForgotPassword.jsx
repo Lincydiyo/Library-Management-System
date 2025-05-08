@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import "../CssFolder/Login.css";
 import Navpage from "./Navpage";
 import Footer from "./Footer";
@@ -9,7 +8,6 @@ import Footer from "./Footer";
 function TeacherForgotPassword() {
   const [email, setEmail] = useState();
   const [role] = useState("teacher");
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -24,19 +22,19 @@ function TeacherForgotPassword() {
 
         if (resetLink) {
           toast.success(response.data.message);
-          const parts = resetLink.split("/");
-          const id = parts[parts.length - 2];
-          const token = parts[parts.length - 1];
-          setTimeout(
-            () => navigate(`/teacherresetpassword/${id}/${token}`),
-            3000
-          );
+          // const parts = resetLink.split("/");
+          // const id = parts[parts.length - 2];
+          // const token = parts[parts.length - 1];
         } else {
           toast.error("Reset link is invalid or missing. Please try again.");
         }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response && err.response.status === 404) {
+          toast.error("Teacher not found. Please check your email.");
+        } else {
+          toast.error("Something went wrong. Please try again later.");
+        }
       });
   };
   return (

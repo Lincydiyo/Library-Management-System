@@ -6,57 +6,76 @@ import "../CssFolder/Edit.css";
 import { ToastContainer, toast } from "react-toastify";
 
 function OneTeacherProfile() {
-  const [oneTeacher, setOneTeacher] = useState([]);
-  const [updateTeacher, setUpdateTeacher] = useState([]);
+  const [oneTeacher, setOneTeacher] = useState({});
+  const [updateTeacher, setUpdateTeacher] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const id = localStorage.getItem("teacherId");
   const navigate = useNavigate();
+  const id = localStorage.getItem("teacherId");
 
-  // FindOneTeacher
-  const OneTeacher = () => {
+    //   FindOneTeacher
+  useEffect(() => {
     axios
-      .post("http://localhost:5000/user/findOneTeacher/" + id)
-      .then((response) => {
-        setOneTeacher(response.data.finddata);
-        setUpdateTeacher(response.data.finddata);
+      .post(`http://localhost:5000/user/findOneTeacher/${id}`)
+      .then((res) => {
+        setOneTeacher(res.data.finddata);
+        setUpdateTeacher(res.data.finddata);
       })
-      .catch((error) => console.log(error));
-  };
-  useEffect(OneTeacher, [id]);
+      .catch((err) => console.log(err));
+  }, [id]);
 
-  // ChangeValue
   const changeValue = (e) => {
     setUpdateTeacher({ ...updateTeacher, [e.target.name]: e.target.value });
   };
 
-  // HandleUpdate
-  const updateHandle = () => {
-    axios
-      .post(`http://localhost:5000/user/updateUser/${id}`, updateTeacher)
-      .then((response) => {
-        toast.success(response.data.message);
-        setUpdateTeacher(response.data.update);
+    // Image Update
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
 
-        setTimeout(() => {
-          navigate("/teacherdashboard");
-        }, 3000);
+  const updateHandle = () => {
+    const { name, email, department, phoneno } = updateTeacher;
+
+    if (!name?.trim() || !email?.trim() || !department?.trim() || !phoneno?.toString().trim()) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("department", department);
+    formData.append("phoneno", phoneno);
+    formData.append("role", "teacher");
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
+
+    axios
+      .post(`http://localhost:5000/user/updateUser/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .catch((error) => {
-        if (error.response && error.response.data.message) {
-          setErrorMessage(error.response.data.message);
-        } else {
-          setErrorMessage("Update failed. Please try again.");
-        }
+      .then((res) => {
+        toast.success(res.data.message);
+        setUpdateTeacher(res.data.update);
+        setTimeout(() => navigate("/teacherdashboard"), 3000);
+      })
+      .catch((err) => {
+        const msg = err.response?.data?.message || "Update failed. Please try again.";
+        setErrorMessage(msg);
       });
   };
+
   return (
     <>
       <TeacherSideBar />
-      {oneTeacher ? (
-        <section className="editDiv">
+      <section className="editDiv">
+        {oneTeacher?.image?.filename && (
           <img
-            src={`http://localhost:5000/${oneTeacher?.image?.filename}`}
-            alt="profileimg"
+            src={`http://localhost:5000/${oneTeacher.image.filename}`}
+            alt="profile"
             style={{
               height: "auto",
               width: "130px",
@@ -65,74 +84,71 @@ function OneTeacherProfile() {
               objectFit: "fill",
             }}
           />
-          <label htmlFor="name">
-            UserName:
-            <input
-              type="text"
-              defaultValue={oneTeacher.name}
-              id="name"
-              name="name"
-              autoComplete="on"
-              onChange={changeValue}
-            />
-          </label>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="text"
-              defaultValue={oneTeacher.email}
-              id="email"
-              name="email"
-              autoComplete="on"
-              onChange={changeValue}
-            />
-          </label>
+        )}
 
-          <label htmlFor="department">
-            Department:
-            <input
-              type="text"
-              defaultValue={oneTeacher.department}
-              id="department"
-              name="department"
-              autoComplete="on"
-              onChange={changeValue}
-            />
-          </label>
-          <label htmlFor="phoneno">
-            Phone Number:
-            <input
-              type="number"
-              defaultValue={oneTeacher.phoneno}
-              id="phoneno"
-              name="phoneno"
-              autoComplete="on"
-              onChange={changeValue}
-            />
-          </label>
-          {errorMessage && (
-            <p
-              style={{ color: "red", fontWeight: "bold", marginBottom: "10px" }}
-            >
-              {errorMessage}
-            </p>
-          )}
-          <button type="button" onClick={updateHandle}>
-            Edit
-          </button>
-        </section>
-      ) : (
-        <p
-          style={{
-            fontSize: 30,
-            textAlign: "center",
-            marginTop: "100px",
-            marginBottom: "100px",
-          }}
-        >
-          Teacher Not Found
-        </p>
-      )}
+        <label htmlFor="name">
+          UserName:
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={updateTeacher.name || ""}
+            onChange={changeValue}
+          />
+        </label>
+
+        <label htmlFor="email">
+          Email:
+          <input
+            type="text"
+            name="email"
+            id="email"
+            value={updateTeacher.email || ""}
+            onChange={changeValue}
+          />
+        </label>
+
+        <label htmlFor="image">Profile Image:</label>
+        <input
+          type="file"
+          name="image"
+          id="image"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+
+        <label htmlFor="department">
+          Department:
+          <input
+            type="text"
+            name="department"
+            id="department"
+            value={updateTeacher.department || ""}
+            onChange={changeValue}
+          />
+        </label>
+
+        <label htmlFor="phoneno">
+          Phone Number:
+          <input
+            type="number"
+            name="phoneno"
+            id="phoneno"
+            value={updateTeacher.phoneno || ""}
+            onChange={changeValue}
+          />
+        </label>
+
+        {errorMessage && (
+          <p style={{ color: "red", fontWeight: "bold", marginBottom: "10px" }}>
+            {errorMessage}
+          </p>
+        )}
+
+        <button type="button" onClick={updateHandle}>
+          Edit
+        </button>
+      </section>
       <ToastContainer />
     </>
   );

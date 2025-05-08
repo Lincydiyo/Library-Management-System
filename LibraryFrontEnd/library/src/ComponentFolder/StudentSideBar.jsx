@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../CssFolder/SideBar.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -14,8 +15,20 @@ import { GoIssueClosed } from "react-icons/go";
 
 function StudentSideBar() {
   const navigate = useNavigate();
-  const studentName = localStorage.getItem("studentName");
-  const studentImage = localStorage.getItem("studentImage");
+
+  const [oneStudent, setOneStudent] = useState({});
+  const id = localStorage.getItem("studentId");
+  const findOneStudent = () => {
+    axios
+      .post("http://localhost:5000/user/findOneStudent/" + id)
+      .then((response) => {
+        setOneStudent(response.data.finddata);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(findOneStudent, [id]);
   // LogOut Student
   const HandleLogOut = () => {
     localStorage.removeItem("studentId");
@@ -50,14 +63,14 @@ function StudentSideBar() {
               <div className="sidebar">
                 <div className="profileSection">
                   <img
-                    src={`http://localhost:5000/${studentImage}`}
+                    src={`http://localhost:5000/${oneStudent?.image?.filename}`}
                     alt="profileImg"
                     width={30}
                     height={30}
                   />
                   <h4>
                     Welcome, <br />
-                    {studentName}
+                    {oneStudent?.name}
                   </h4>
                 </div>
                 <ul className="navlist">
@@ -104,14 +117,14 @@ function StudentSideBar() {
       <div className="sidebar d-none d-lg-block">
         <div className="profileSection">
           <img
-            src={`http://localhost:5000/${studentImage}`}
+            src={`http://localhost:5000/${oneStudent?.image?.filename}`}
             alt="profileImg"
             width={30}
             height={30}
           />
           <h4>
             Welcome, <br />
-            {studentName}
+            {oneStudent?.name}{" "}
           </h4>
         </div>
         <ul className="navlist">

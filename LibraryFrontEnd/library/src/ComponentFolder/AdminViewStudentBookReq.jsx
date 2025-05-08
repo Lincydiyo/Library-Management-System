@@ -55,6 +55,16 @@ function AdminViewStudentBookReq() {
       });
   };
 
+   // Format Date as dd-mm-yyyy
+   const formatDate = (date) => {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = d.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <>
       <SideBar />
@@ -75,51 +85,49 @@ function AdminViewStudentBookReq() {
                   <th>Action</th>
                 </tr>
               </thead>
-
               <tbody>
-                {bookRequests.map((request, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
+              {bookRequests.map((request, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
 
-                    <td>
-                      {request.studentId ? request.studentId.name : "Unknown"}
-                    </td>
-                    <td>
-                      <img
-                        src={`http://localhost:5000/${request.bookId?.image?.filename}`}
-                        alt="bookimg"
-                      />
-                    </td>
-                    <td>
-                      {request.bookId ? request.bookId.bookName : "Unknown"}
-                    </td>
-                    <td>
-                      {new Date(request.requestDate).toLocaleDateString()}
-                    </td>
+                  <td>
+                    {request.studentId ? request.studentId.name : "Unknown"}
+                  </td>
+                  <td>
+                    <img
+                      src={`http://localhost:5000/${request.bookId?.image?.filename}`}
+                      alt="bookimg"
+                    />
+                  </td>
+                  <td>
+                    {request.bookId ? request.bookId.bookName : "Unknown"}
+                  </td>
+                  <td>
+                    {formatDate(request.requestDate)} 
+                  </td>
 
-                    <td>{request.status}</td>
-                    <td>
-                      {request.status === "Pending" && (
-                        <>
-                          <TiTick
-                            style={{ fontSize: "35px", color: "green" }}
-                            onClick={() =>
-                              handleStatusChange(request._id, "Approved")
-                            }
-                          />
-
-                          <TiDelete
-                            style={{ fontSize: "35px", color: "red" }}
-                            onClick={() =>
-                              handleStatusChange(request._id, "Rejected")
-                            }
-                          />
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+                  <td>{request.status}</td>
+                  <td>
+                    {request.status === "Pending" && (
+                      <>
+                        <TiTick
+                          style={{ fontSize: "35px", color: "green" }}
+                          onClick={() =>
+                            handleStatusChange(request._id, "Approved")
+                          }
+                        />
+                        <TiDelete
+                          style={{ fontSize: "35px", color: "red" }}
+                          onClick={() =>
+                            handleStatusChange(request._id, "Rejected")
+                          }
+                        />
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
             </table>
           </div>
         </>

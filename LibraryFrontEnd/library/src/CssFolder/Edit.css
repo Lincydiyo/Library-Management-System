@@ -57,6 +57,27 @@
   box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
 }
 
+/* Select tag Styling */
+.editDiv select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #fff;
+  appearance: none;
+  text-align: start;
+  position: relative;
+}
+
+/* Select tag Focus Styling */
+.editDiv select:focus {
+  border-color: #2c3e50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(44, 62, 80, 0.5);
+}
+
 /* Button */
 .editDiv button {
   width: 100%;
@@ -89,6 +110,8 @@
 .editDiv a:hover {
   text-decoration: underline;
 }
+
+
 
 /* Responsive Styles */
 @media screen and (max-width: 992px) {

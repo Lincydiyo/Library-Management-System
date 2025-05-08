@@ -56,7 +56,7 @@ function StudentDboard() {
           </div>
           <div className="dashboardIconDiv">
             <IoBookOutline style={{ color: "red", fontSize: "30px" }} />
-            <h4>RejectedBooks</h4>
+            <h4>Rejected Books</h4>
             <p>{rejectedBooks}</p>
           </div>
         </div>

@@ -43,7 +43,7 @@ function BookView() {
             <h5>PubishedDate: {oneBook?.published}</h5>
             <br />
             <Card.Link href="/bookdetails">Back To Book Details</Card.Link>
-            <Card.Link href="/addbook">Add Books</Card.Link>
+           
           </Card.Body>
         </Card>
       </div>

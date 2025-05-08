@@ -5,7 +5,7 @@ import { CiEdit } from "react-icons/ci";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
-import {  toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 function BookDetails() {
   const [bookDetail, setBookDetail] = useState([]);
@@ -34,19 +34,26 @@ function BookDetails() {
   const handleDelete = (id) => {
     axios
       .post("http://localhost:5000/book/deleteBook/" + id)
-      .then(() => {
-        setBookDetail(bookDetail.filter((book) => book._id !== id));
-        toast.success("Book Deleted Successfully");
+      .then((response) => {
+        console.log("Response:", response);
+        console.log("Response Data Message:", response?.data?.message);
+        if (response.data?.message === "Book Deleted Successfully") {
+          setBookDetail(bookDetail.filter((book) => book._id !== id));
+          toast.success("Book Deleted Successfully ");
+        } else {
+          toast.error(" Book not deleted. Unexpected message.");
+        }
       })
       .catch((error) => {
-        console.error("Error deleting Book:", error);
-        toast.error("Failed to delete Book. Please try again.");
+        console.error("Error deleting book:", error);
+        toast.error(" Failed to delete Book.");
       });
   };
 
   return (
     <>
       <SideBar />
+      <ToastContainer />
       {bookDetail.length > 0 ? (
         <>
           <div className="tabledetails">
@@ -58,7 +65,7 @@ function BookDetails() {
                   <th>Book Image</th>
                   <th>Book Name</th>
                   <th>Author Name</th>
-                  <th>price</th>
+                  <th>Price</th>
                   <th>Description</th>
                   <th>Published Date</th>
                   <th>BookView</th>

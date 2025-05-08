@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navpage from "./Navpage";
 import "../CssFolder/Login.css";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { TbLogin2 } from "react-icons/tb";
 import axios from "axios";
 import Footer from "./Footer";
@@ -13,6 +14,7 @@ function TeacherLogin() {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -34,11 +36,11 @@ function TeacherLogin() {
         localStorage.setItem("teacherImage", image.filename);
         localStorage.setItem("token", token);
 
-        toast.success(response.data.message);
-        setTimeout(() => {
-          navigate("/teacherdashboard");
-        }, 3000);
+        toast.success(response.data.message, {
+          onClose: () => navigate("/teacherdashboard"),
+        });
       })
+
       .catch((error) => {
         if (
           error.response &&
@@ -73,10 +75,10 @@ function TeacherLogin() {
                   required
                 />
               </label>
-              <label>
-                Password
+              <label>Password </label>
+              <div className="password-wrapper">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter Your Password"
                   name="password"
                   id="password"
@@ -85,7 +87,13 @@ function TeacherLogin() {
                   onChange={handleChange}
                   required
                 />
-              </label>
+                <span
+                  className="toggle-icon"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
               <button type="submit">
@@ -93,8 +101,9 @@ function TeacherLogin() {
               </button>
             </form>
             <div className="links">
-              <span>
-                Do not have an account? <a href="/teachersignup">SignUp here</a>
+              <span className="lastSpan">
+                Do not have an account?
+                <a href="/teachersignup">SignUp here</a>
               </span>
               <Link to="/teacherforgotpassword" className="goback">
                 Forgot password

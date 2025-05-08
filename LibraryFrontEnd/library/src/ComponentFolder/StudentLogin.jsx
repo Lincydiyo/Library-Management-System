@@ -3,6 +3,7 @@ import Navpage from "./Navpage";
 import { Link, useNavigate } from "react-router-dom";
 import "../CssFolder/Login.css";
 import { TbLogin2 } from "react-icons/tb";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,6 +13,8 @@ function StudentLogin() {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -35,10 +38,9 @@ function StudentLogin() {
         localStorage.setItem("studentImage", image.filename);
         localStorage.setItem("token", token);
 
-        toast.success(response.data.message);
-        setTimeout(() => {
-          navigate("/studentdashboard");
-        }, 3000);
+        toast.success(response.data.message, {
+          onClose: () => navigate("/studentdashboard"),
+        });
       })
 
       .catch((error) => {
@@ -76,10 +78,10 @@ function StudentLogin() {
                   required
                 />
               </label>
-              <label>
-                Password
+              <label>Password </label>
+              <div className="password-wrapper">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter Your Password"
                   name="password"
                   id="password"
@@ -88,18 +90,24 @@ function StudentLogin() {
                   onChange={handleChange}
                   required
                 />
-              </label>
+                <span
+                  className="toggle-icon"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               <button type="submit">
                 Login <TbLogin2 style={{ fontSize: 25 }} />
               </button>
             </form>
             <div className="links">
-              <span>
+              <span className="lastSpan">
                 Do not have an account?
-                <a href="/studentregistration">SignUp here</a>
+                <a href="/studentregistration" >SignUp here</a>
               </span>
-
               <Link to="/studentforgotpassword" className="goback">
                 Forgot password
               </Link>

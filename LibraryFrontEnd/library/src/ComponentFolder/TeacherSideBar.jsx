@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../CssFolder/SideBar.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -12,11 +13,20 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { GoIssueClosed } from "react-icons/go";
 
 function TeacherSideBar() {
-  const teacherName = localStorage.getItem("teacherName") || "Teacher";
-  const teacherImage = localStorage.getItem("teacherImage");
-  const teacherId = localStorage.getItem("teacherId");
   const navigate = useNavigate();
-
+  const [oneTeacher, setOneTeacher] = useState({});
+  const id = localStorage.getItem("teacherId");
+  const findOneTeacher = () => {
+    axios
+      .post("http://localhost:5000/user/findOneTeacher/" + id)
+      .then((response) => {
+        setOneTeacher(response.data.finddata);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(findOneTeacher, [id]);
   // LogOut Teacher
   const HandleLogOut = () => {
     localStorage.removeItem("teacherId");
@@ -52,16 +62,14 @@ function TeacherSideBar() {
               <div className="sidebar">
                 <div className="profileSection">
                   <img
-                    src={
-                      teacherImage
-                        ? `http://localhost:5000/${teacherImage}`
-                        : "https://via.placeholder.com/80"
-                    }
+                    src={`http://localhost:5000/${oneTeacher?.image?.filename}`}
                     alt="profileImg"
+                    width={30}
+                    height={30}
                   />
                   <h4>
                     Welcome, <br />
-                    {teacherName}
+                    {oneTeacher?.name}
                   </h4>
                 </div>
 
@@ -80,7 +88,11 @@ function TeacherSideBar() {
                   </li>
                   <li>
                     <FaUser style={{ fontSize: "23px" }} />
-                    <a href={`/viewTeacherProfile/${teacherId}`}>
+                    <a
+                      href={`/viewTeacherProfile/${localStorage.getItem(
+                        "teacherId"
+                      )}`}
+                    >
                       View Profile
                     </a>
                   </li>
@@ -106,16 +118,14 @@ function TeacherSideBar() {
       <div className="sidebar d-none d-lg-block">
         <div className="profileSection">
           <img
-            src={
-              teacherImage
-                ? `http://localhost:5000/${teacherImage}`
-                : "https://via.placeholder.com/80"
-            }
+            src={`http://localhost:5000/${oneTeacher?.image?.filename}`}
             alt="profileImg"
+            width={30}
+            height={30}
           />
           <h4>
             Welcome, <br />
-            {teacherName}
+            {oneTeacher?.name}
           </h4>
         </div>
 
@@ -134,7 +144,11 @@ function TeacherSideBar() {
           </li>
           <li>
             <FaUser style={{ fontSize: "23px" }} />
-            <a href={`/viewTeacherProfile/${teacherId}`}>View Profile</a>
+            <a
+              href={`/viewTeacherProfile/${localStorage.getItem("teacherId")}`}
+            >
+              View Profile
+            </a>
           </li>
           <li>
             <FaUserEdit style={{ fontSize: "23px" }} />

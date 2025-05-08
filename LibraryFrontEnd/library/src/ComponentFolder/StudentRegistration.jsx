@@ -17,7 +17,6 @@ function StudentRegistration() {
     semester: "",
     phoneno: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -48,19 +47,14 @@ function StudentRegistration() {
     axios
       .post("http://localhost:5000/user/signup", formData)
       .then((response) => {
-        toast.success(response.data.message);
-        setTimeout(() => {
-          navigate("/studentlogin");
-        }, 3000);
+        toast.success(response.data.message, {
+          onClose: () => navigate("/studentlogin"),
+        });
       })
 
       .catch((error) => {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          setErrorMessage(error.response.data.message);
+        if (error.response?.data?.message) {
+          toast.error(error.response.data.message);
         } else {
           toast.error("Registration failed. Please try again.");
         }
@@ -119,6 +113,7 @@ function StudentRegistration() {
                   type="file"
                   name="image"
                   id="image"
+                  accept="image/*"
                   onChange={handleChange}
                   required
                   className="fileInput"
@@ -185,11 +180,6 @@ function StudentRegistration() {
                 />
               </label>
 
-              {errorMessage && (
-                <p style={{ color: "red", marginBottom: "10px" }}>
-                  {errorMessage}
-                </p>
-              )}
               <button type="submit">Register</button>
             </form>
 
