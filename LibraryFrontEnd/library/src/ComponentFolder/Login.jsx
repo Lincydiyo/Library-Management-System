@@ -82,12 +82,12 @@ function Login() {
               <button type="submit">
                 Login <TbLogin2 style={{ fontSize: 25 }} />
               </button>
-              <ToastContainer />
             </form>
           </div>
         </div>
         <Footer />
       </div>
+      <ToastContainer />
     </>
   );
 }
