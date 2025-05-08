@@ -7,6 +7,8 @@ const {
   registerTeacherSchema,
   loginStudentSchema,
   loginTeacherSchema,
+  updateStudentSchema,
+  updateTeacherSchema
 } = require("../validations/user.validation");
 
 route.post(
@@ -48,7 +50,26 @@ route.post(
 );
 
 // Update Route
-route.post("/updateUser/:id", userController.updateUser);
+
+route.post(
+  "/updateUser/:id", 
+  userController.upload, 
+  (req, res, next) => {
+    const role = req.body.role;
+
+    if (role === "student") {
+      return validate(updateStudentSchema)(req, res, next);
+    } else if (role === "teacher") {
+      return validate(updateTeacherSchema)(req, res, next);
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Invalid role provided for update" });
+    }
+  },
+  userController.updateUser
+);
+
 route.post("/findStudents", userController.findStudents);
 route.post("/findTeachers", userController.findTeachers);
 route.post("/findOneStudent/:id", userController.findOneStudent);

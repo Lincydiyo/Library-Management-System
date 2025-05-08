@@ -15,6 +15,7 @@ route.post(
 );
 route.post(
   "/updateBooks/:id",
+  bookController.upload,
   validate(updateBookSchema),
   bookController.updateBook
 );

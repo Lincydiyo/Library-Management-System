@@ -15,7 +15,19 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage: storage }).single("image");
+
+// Only allow image files not pdf or something
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Only image files are allowed (jpg, png, webp"));
+  }
+};
+const upload = multer({ storage: storage, fileFilter: fileFilter }).single(
+  "image"
+);
 
 // Signup
 const userSignUp = (req, res) => {
@@ -26,36 +38,50 @@ const userSignUp = (req, res) => {
     return res.status(400).json({ message: "Profile image is required" });
   }
 
-  const data = new User({
-    role,
-    name,
-    email,
-    password,
-    image: req.file,
-    department,
-    phoneno,
-    dob: role === "student" ? dob : undefined,
-    semester: role === "student" ? semester : undefined,
-  });
-  data
-    .save()
-    .then((user) => {
-      const token = generateToken(user._id, user.role);
-      res.status(200).json({
-        message: `${user.role} registered successfully`,
-        data: {
-          _id: user._id,
-          name: user.name,
-          image: user.image,
-          token,
-        },
-      });
-    })
+  // Check if email already exists
+  User.findOne({ email })
+    .then((existingEmail) => {
+      if (existingEmail) {
+        return res.status(400).json({ message: "Email already exists" });
+      }
 
+      const data = new User({
+        role,
+        name,
+        email,
+        password,
+        image: req.file,
+        department,
+        phoneno,
+        dob: role === "student" ? dob : undefined,
+        semester: role === "student" ? semester : undefined,
+      });
+      data
+        .save()
+        .then((user) => {
+          const token = generateToken(user._id, user.role);
+          res.status(200).json({
+            message: `${user.role} registered successfully`,
+            data: {
+              _id: user._id,
+              name: user.name,
+              image: user.image,
+              token,
+            },
+          });
+        })
+
+        .catch((err) => {
+          res
+            .status(500)
+            .json({ message: `${role} registered failed`, error: err.message });
+        });
+    })
     .catch((err) => {
-      res
-        .status(500)
-        .json({ message: `${role} registered failed`, error: err.message });
+      res.status(500).json({
+        message: "something went wrong",
+        error: err.message,
+      });
     });
 };
 
@@ -145,7 +171,7 @@ const resetPassword = async (req, res, next) => {
 
     // Hash and update in one operation to avoid race conditions
     const hashedPassword = await bcrypt.hash(password, 12);
-    
+
     const user = await User.findByIdAndUpdate(
       id,
       { password: hashedPassword },
@@ -201,17 +227,17 @@ const updateUser = (req, res) => {
         return res.status(404).json({ message: "User not found" });
       }
 
-      const updatedData = {
-        role,
-        name,
-        email,
-        password,
-        image: req.file ? req.file : existingUser.image,
-        department,
-        phoneno,
-        dob: role === "student" ? dob : undefined,
-        semester: role === "student" ? semester : undefined,
-      };
+      const updatedData = {};
+
+      if (name) updatedData.name = name;
+      if (email) updatedData.email = email;
+      if (dob && role === "student") updatedData.dob = dob;
+      if (department) updatedData.department = department;
+      if (phoneno) updatedData.phoneno = phoneno;
+      if (semester && role === "student") updatedData.semester = semester;
+
+      // If a new image is provided, update the image, else keep the existing one
+      updatedData.image = req.file ? req.file : existingUser.image;
 
       // Then update
       User.findByIdAndUpdate(id, updatedData, { new: true })

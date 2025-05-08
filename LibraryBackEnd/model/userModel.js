@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
     },
     // Student special input fields
     dob: {
-      type: Date,
+      type: String,
       required: function () {
         return this.role === "student";
       },
