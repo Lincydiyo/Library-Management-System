@@ -20,22 +20,22 @@ function Footer() {
       <div className="icon">
         <ul>
           <li>
-            <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
               <RiFacebookFill />
             </a>
           </li>
           <li>
-            <a href="https://www.instagram.com/" target="_blank">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
               <AiOutlineInstagram />
             </a>
           </li>
           <li>
-            <a href="https://x.com/" target="_blank">
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
               <AiOutlineTwitter />
             </a>
           </li>
           <li>
-            <a href="https://www.youtube.com/" target="_blank">
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
               <BsYoutube />
             </a>
           </li>
