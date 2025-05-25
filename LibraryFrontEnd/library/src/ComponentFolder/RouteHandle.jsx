@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Contact from "./Contact";
@@ -44,7 +43,7 @@ import TeacherResetPassword from "./TeacherResetPassword";
 function RouteHandle() {
   return (
     <>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -115,7 +114,7 @@ function RouteHandle() {
             element={<TeacherResetPassword />}
           />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </>
   );
 }

@@ -1,25 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../CssFolder/SideBar.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { GiBookAura } from "react-icons/gi";
+import { GiBookAura, GiTeacher } from "react-icons/gi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { PiStudentFill, PiListDashesFill } from "react-icons/pi";
-import { GiTeacher } from "react-icons/gi";
 import { FaBookReader } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 
 function SideBar({ adminName }) {
   return (
     <>
-      {/* Navbar for small screens with Offcanvas */}
+      {/* Navbar for small screens */}
       <Navbar expand="lg" className="mainNavbar">
         <Container fluid>
-          <Navbar.Brand href="#" className="text-white">
+          <Navbar.Brand as={Link} to="/" className="text-white">
             <GiBookAura style={{ fontSize: 40, marginRight: "10px" }} />
-            <b> Library </b>
+            <b>Library</b>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar" />
           <Navbar.Offcanvas
@@ -33,7 +33,6 @@ function SideBar({ adminName }) {
                 Menu
               </Offcanvas.Title>
             </Offcanvas.Header>
-
             <Offcanvas.Body>
               <div className="sidebar">
                 <div className="profileSection">
@@ -43,43 +42,41 @@ function SideBar({ adminName }) {
                   />
                   <h4>
                     Welcome, <br />
-                    {adminName ? adminName : "Admin"}
+                    {adminName || "Admin"}
                   </h4>
                 </div>
-
                 <ul className="navlist">
                   <li>
                     <LuLayoutDashboard style={{ fontSize: "23px" }} />
-                    <a href="/admindashboard">Admin Dashboard</a>
+                    <Link to="/admindashboard">Admin Dashboard</Link>
                   </li>
                   <li>
                     <IoMdAddCircleOutline style={{ fontSize: "23px" }} />
-                    <a href="/addbook">Add Books</a>
+                    <Link to="/addbook">Add Books</Link>
                   </li>
                   <li>
                     <PiStudentFill style={{ fontSize: "23px" }} />
-                    <a href="/studentlist">Student List</a>
+                    <Link to="/studentlist">Student List</Link>
                   </li>
                   <li>
                     <GiTeacher style={{ fontSize: "23px" }} />
-                    <a href="/teacherlist">Teacher List</a>
+                    <Link to="/teacherlist">Teacher List</Link>
                   </li>
                   <li>
                     <PiListDashesFill style={{ fontSize: "23px" }} />
-                    <a href="/bookdetails">Book Details</a>
-                  </li>
-                 
-                  <li>
-                    <FaBookReader style={{ fontSize: "23px" }} />
-                    <a href="/studentBookReq">Student Book Request</a>
+                    <Link to="/bookdetails">Book Details</Link>
                   </li>
                   <li>
                     <FaBookReader style={{ fontSize: "23px" }} />
-                    <a href="/teacherBookReq">Teacher Book Request</a>
+                    <Link to="/studentBookReq">Student Book Request</Link>
+                  </li>
+                  <li>
+                    <FaBookReader style={{ fontSize: "23px" }} />
+                    <Link to="/teacherBookReq">Teacher Book Request</Link>
                   </li>
                   <li>
                     <BiLogOut style={{ fontSize: "23px" }} />
-                    <a href="/adminlogin">Logout</a>
+                    <Link to="/adminlogin">Logout</Link>
                   </li>
                 </ul>
               </div>
@@ -95,42 +92,40 @@ function SideBar({ adminName }) {
             src="https://static.vecteezy.com/system/resources/previews/009/383/461/original/man-face-clipart-design-illustration-free-png.png"
             alt="profileImg"
           />
-          <h4>Welcome, {adminName ? adminName : "Admin"}</h4>
+          <h4>Welcome, {adminName || "Admin"}</h4>
         </div>
-
         <ul className="navlist">
           <li>
             <LuLayoutDashboard style={{ fontSize: "23px" }} />
-            <a href="/admindashboard">Admin Dashboard</a>
+            <Link to="/admindashboard">Admin Dashboard</Link>
           </li>
           <li>
             <IoMdAddCircleOutline style={{ fontSize: "23px" }} />
-            <a href="/addbook">Add Books</a>
+            <Link to="/addbook">Add Books</Link>
           </li>
           <li>
             <PiStudentFill style={{ fontSize: "23px" }} />
-            <a href="/studentlist">Student List</a>
+            <Link to="/studentlist">Student List</Link>
           </li>
           <li>
             <GiTeacher style={{ fontSize: "23px" }} />
-            <a href="/teacherlist">Teacher List</a>
+            <Link to="/teacherlist">Teacher List</Link>
           </li>
           <li>
             <PiListDashesFill style={{ fontSize: "23px" }} />
-            <a href="/bookdetails">Book Details</a>
-          </li>
-          
-          <li>
-            <FaBookReader style={{ fontSize: "23px" }} />
-            <a href="/studentBookReq">Student Book Request</a>
+            <Link to="/bookdetails">Book Details</Link>
           </li>
           <li>
             <FaBookReader style={{ fontSize: "23px" }} />
-            <a href="/teacherBookReq">Teacher Book Request</a>
+            <Link to="/studentBookReq">Student Book Request</Link>
+          </li>
+          <li>
+            <FaBookReader style={{ fontSize: "23px" }} />
+            <Link to="/teacherBookReq">Teacher Book Request</Link>
           </li>
           <li>
             <BiLogOut style={{ fontSize: "23px" }} />
-            <a href="/adminlogin">Logout</a>
+            <Link to="/adminlogin">Logout</Link>
           </li>
         </ul>
       </div>
@@ -139,4 +134,3 @@ function SideBar({ adminName }) {
 }
 
 export default SideBar;
-
