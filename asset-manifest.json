@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Library-Management-System/static/css/main.1e8a78bd.css",
-    "main.js": "/Library-Management-System/static/js/main.e846846b.js",
+    "main.css": "/Library-Management-System/static/css/main.541f02c1.css",
+    "main.js": "/Library-Management-System/static/js/main.ad6ae315.js",
     "static/js/488.712c729a.chunk.js": "/Library-Management-System/static/js/488.712c729a.chunk.js",
     "static/media/about2.jpg": "/Library-Management-System/static/media/about2.a208fd14c51d2cdf44ef.jpg",
     "static/media/about3.jpg": "/Library-Management-System/static/media/about3.2385d05dbbb6ca202579.jpg",
@@ -9,12 +9,12 @@
     "static/media/about1.jpg": "/Library-Management-System/static/media/about1.0fe2aaee8ef13bdf25bf.jpg",
     "static/media/ReturnBookImg.svg": "/Library-Management-System/static/media/ReturnBookImg.be258859a33b2f0bb7e24801c9f6013a.svg",
     "index.html": "/Library-Management-System/index.html",
-    "main.1e8a78bd.css.map": "/Library-Management-System/static/css/main.1e8a78bd.css.map",
-    "main.e846846b.js.map": "/Library-Management-System/static/js/main.e846846b.js.map",
+    "main.541f02c1.css.map": "/Library-Management-System/static/css/main.541f02c1.css.map",
+    "main.ad6ae315.js.map": "/Library-Management-System/static/js/main.ad6ae315.js.map",
     "488.712c729a.chunk.js.map": "/Library-Management-System/static/js/488.712c729a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e8a78bd.css",
-    "static/js/main.e846846b.js"
+    "static/css/main.541f02c1.css",
+    "static/js/main.ad6ae315.js"
   ]
 }
