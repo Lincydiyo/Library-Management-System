@@ -106,7 +106,7 @@ function StudentLogin() {
             <div className="links">
               <span className="lastSpan">
                 Do not have an account?
-                <a href="/studentregistration" >SignUp here</a>
+               <Link to="/studentregistration">SignUp here</Link>
               </span>
               <Link to="/studentforgotpassword" className="goback">
                 Forgot password

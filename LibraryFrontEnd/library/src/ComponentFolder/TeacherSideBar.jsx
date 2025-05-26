@@ -4,7 +4,7 @@ import "../CssFolder/SideBar.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { GiBookAura } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoBookOutline } from "react-icons/io5";
 import { FaUserEdit, FaUser } from "react-icons/fa";
@@ -16,17 +16,18 @@ function TeacherSideBar() {
   const navigate = useNavigate();
   const [oneTeacher, setOneTeacher] = useState({});
   const id = localStorage.getItem("teacherId");
-  const findOneTeacher = () => {
+
+  useEffect(() => {
     axios
-      .post("http://localhost:5000/user/findOneTeacher/" + id)
+      .post(`http://localhost:5000/user/findOneTeacher/${id}`)
       .then((response) => {
         setOneTeacher(response.data.finddata);
       })
       .catch((error) => {
         console.log(error);
       });
-  };
-  useEffect(findOneTeacher, [id]);
+  }, [id]);
+
   // LogOut Teacher
   const HandleLogOut = () => {
     localStorage.removeItem("teacherId");
@@ -41,7 +42,7 @@ function TeacherSideBar() {
       {/* Navbar for small screens with Offcanvas */}
       <Navbar expand="lg" className="mainNavbar">
         <Container fluid>
-          <Navbar.Brand href="#" className="text-white">
+          <Navbar.Brand as={Link} to="/" className="text-white">
             <GiBookAura style={{ fontSize: 40, marginRight: "10px" }} />
             <b> Library </b>
           </Navbar.Brand>
@@ -76,36 +77,29 @@ function TeacherSideBar() {
                 <ul className="navlist">
                   <li>
                     <LuLayoutDashboard style={{ fontSize: "23px" }} />
-                    <a href="/teacherdashboard">Teacher Dashboard</a>
+                    <Link to="/teacherdashboard">Teacher Dashboard</Link>
                   </li>
                   <li>
                     <IoBookOutline style={{ fontSize: "23px" }} />
-                    <a href="/teacherViewAvailableBooks">Available Books</a>
+                    <Link to="/teacherViewAvailableBooks">Available Books</Link>
                   </li>
                   <li>
                     <GoIssueClosed style={{ fontSize: "23px" }} />
-                    <a href="/teacherIssuedBook">Issued Book</a>
+                    <Link to="/teacherIssuedBook">Issued Book</Link>
                   </li>
                   <li>
                     <FaUser style={{ fontSize: "23px" }} />
-                    <a
-                      href={`/viewTeacherProfile/${localStorage.getItem(
-                        "teacherId"
-                      )}`}
-                    >
-                      View Profile
-                    </a>
+                    <Link to={`/viewTeacherProfile/${id}`}>View Profile</Link>
                   </li>
                   <li>
                     <FaUserEdit style={{ fontSize: "23px" }} />
-                    <a href="/editteacherprofile">Edit Profile</a>
+                    <Link to="/editteacherprofile">Edit Profile</Link>
                   </li>
-
                   <li>
                     <BiLogOut style={{ fontSize: "23px" }} />
-                    <a href="/teacherlogin" onClick={HandleLogOut}>
+                    <Link to="/teacherlogin" onClick={HandleLogOut}>
                       Logout
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -132,34 +126,29 @@ function TeacherSideBar() {
         <ul className="navlist">
           <li>
             <LuLayoutDashboard style={{ fontSize: "23px" }} />
-            <a href="/teacherdashboard">Teacher Dashboard</a>
+            <Link to="/teacherdashboard">Teacher Dashboard</Link>
           </li>
           <li>
             <IoBookOutline style={{ fontSize: "23px" }} />
-            <a href="/teacherViewAvailableBooks">Available Books</a>
+            <Link to="/teacherViewAvailableBooks">Available Books</Link>
           </li>
           <li>
             <GoIssueClosed style={{ fontSize: "23px" }} />
-            <a href="/teacherIssuedBook">Issued Book</a>
+            <Link to="/teacherIssuedBook">Issued Book</Link>
           </li>
           <li>
             <FaUser style={{ fontSize: "23px" }} />
-            <a
-              href={`/viewTeacherProfile/${localStorage.getItem("teacherId")}`}
-            >
-              View Profile
-            </a>
+            <Link to={`/viewTeacherProfile/${id}`}>View Profile</Link>
           </li>
           <li>
             <FaUserEdit style={{ fontSize: "23px" }} />
-            <a href="/editteacherprofile">Edit Profile</a>
+            <Link to="/editteacherprofile">Edit Profile</Link>
           </li>
-
           <li>
             <BiLogOut style={{ fontSize: "23px" }} />
-            <a href="/teacherlogin" onClick={HandleLogOut}>
+            <Link to="/teacherlogin" onClick={HandleLogOut}>
               Logout
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

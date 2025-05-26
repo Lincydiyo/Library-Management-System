@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navpage from "./Navpage";
 import "../CssFolder/SignUp.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -138,7 +138,7 @@ function TeacherSignUp() {
 
               <button type="submit"> SignUp </button>
               <span>
-                Already have an account? <a href="/teacherlogin">Login here</a>
+                Already have an account? <Link to="/teacherlogin">Login here</Link>
               </span>
             </form>
           </div>

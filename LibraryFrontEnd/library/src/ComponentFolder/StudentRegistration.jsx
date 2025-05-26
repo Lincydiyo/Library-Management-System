@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Navpage from "./Navpage";
 import { useNavigate } from "react-router-dom";
 import "../CssFolder/SignUp.css";
 import axios from "axios";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function StudentRegistration() {
   const [studentSignup, setStudentSignUp] = useState({
@@ -184,7 +185,7 @@ function StudentRegistration() {
             </form>
 
             <span>
-              Already have an account? <a href="/studentlogin">Login here</a>
+              Already have an account? <Link to="/studentlogin">Login here</Link>
             </span>
           </div>
         </div>

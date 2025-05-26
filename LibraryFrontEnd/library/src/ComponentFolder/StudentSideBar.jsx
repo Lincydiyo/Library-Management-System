@@ -4,21 +4,20 @@ import "../CssFolder/SideBar.css";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { GiBookAura } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoBookOutline } from "react-icons/io5";
-import { FaUserEdit } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
+import { FaUserEdit, FaUser } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { GoIssueClosed } from "react-icons/go";
 
 function StudentSideBar() {
   const navigate = useNavigate();
-
   const [oneStudent, setOneStudent] = useState({});
   const id = localStorage.getItem("studentId");
-  const findOneStudent = () => {
+
+  useEffect(() => {
     axios
       .post("http://localhost:5000/user/findOneStudent/" + id)
       .then((response) => {
@@ -27,8 +26,8 @@ function StudentSideBar() {
       .catch((error) => {
         console.log(error);
       });
-  };
-  useEffect(findOneStudent, [id]);
+  }, [id]);
+
   // LogOut Student
   const HandleLogOut = () => {
     localStorage.removeItem("studentId");
@@ -37,12 +36,13 @@ function StudentSideBar() {
     localStorage.removeItem("token");
     navigate("/studentlogin");
   };
+
   return (
     <>
       {/* Navbar for small screens with Offcanvas */}
       <Navbar expand="lg" className="mainNavbar">
         <Container fluid>
-          <Navbar.Brand href="#" className="text-white">
+          <Navbar.Brand as={Link} to="/" className="text-white">
             <GiBookAura style={{ fontSize: 40, marginRight: "10px" }} />
             <b> Library </b>
           </Navbar.Brand>
@@ -73,38 +73,33 @@ function StudentSideBar() {
                     {oneStudent?.name}
                   </h4>
                 </div>
+
                 <ul className="navlist">
                   <li>
                     <LuLayoutDashboard style={{ fontSize: "23px" }} />
-                    <a href="/studentdashboard">Student Dashboard</a>
+                    <Link to="/studentdashboard">Student Dashboard</Link>
                   </li>
                   <li>
                     <IoBookOutline style={{ fontSize: "23px" }} />
-                    <a href="/studentViewAvailableBooks">Available Books</a>
+                    <Link to="/studentViewAvailableBooks">Available Books</Link>
                   </li>
                   <li>
                     <GoIssueClosed style={{ fontSize: "23px" }} />
-                    <a href="/studentIssuedBook">Issued Book</a>
+                    <Link to="/studentIssuedBook">Issued Book</Link>
                   </li>
                   <li>
                     <FaUser style={{ fontSize: "23px" }} />
-                    <a
-                      href={`/viewStudentProfile/${localStorage.getItem(
-                        "studentId"
-                      )}`}
-                    >
-                      View Profile
-                    </a>
+                    <Link to={`/viewStudentProfile/${id}`}>View Profile</Link>
                   </li>
                   <li>
                     <FaUserEdit style={{ fontSize: "23px" }} />
-                    <a href="/editstudentprofile">Edit Profile</a>
+                    <Link to="/editstudentprofile">Edit Profile</Link>
                   </li>
                   <li>
                     <BiLogOut style={{ fontSize: "23px" }} />
-                    <a href="/studentlogin" onClick={HandleLogOut}>
+                    <Link to="/studentlogin" onClick={HandleLogOut}>
                       Logout
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -124,39 +119,36 @@ function StudentSideBar() {
           />
           <h4>
             Welcome, <br />
-            {oneStudent?.name}{" "}
+            {oneStudent?.name}
           </h4>
         </div>
+
         <ul className="navlist">
           <li>
             <LuLayoutDashboard style={{ fontSize: "23px" }} />
-            <a href="/studentdashboard">Student Dashboard</a>
+            <Link to="/studentdashboard">Student Dashboard</Link>
           </li>
           <li>
             <IoBookOutline style={{ fontSize: "23px" }} />
-            <a href="/studentViewAvailableBooks">Available Books</a>
+            <Link to="/studentViewAvailableBooks">Available Books</Link>
           </li>
           <li>
             <GoIssueClosed style={{ fontSize: "23px" }} />
-            <a href="/studentIssuedBook">Issued Book</a>
+            <Link to="/studentIssuedBook">Issued Book</Link>
           </li>
           <li>
             <FaUser style={{ fontSize: "23px" }} />
-            <a
-              href={`/viewStudentProfile/${localStorage.getItem("studentId")}`}
-            >
-              View Profile
-            </a>
+            <Link to={`/viewStudentProfile/${id}`}>View Profile</Link>
           </li>
           <li>
             <FaUserEdit style={{ fontSize: "23px" }} />
-            <a href="/editstudentprofile">Edit Profile</a>
+            <Link to="/editstudentprofile">Edit Profile</Link>
           </li>
           <li>
             <BiLogOut style={{ fontSize: "23px" }} />
-            <a href="/studentlogin" onClick={HandleLogOut}>
+            <Link to="/studentlogin" onClick={HandleLogOut}>
               Logout
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

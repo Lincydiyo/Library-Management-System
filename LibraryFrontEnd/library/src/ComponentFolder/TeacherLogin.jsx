@@ -103,7 +103,7 @@ function TeacherLogin() {
             <div className="links">
               <span className="lastSpan">
                 Do not have an account?
-                <a href="/teachersignup">SignUp here</a>
+                <Link to="/teachersignup">SignUp here</Link>
               </span>
               <Link to="/teacherforgotpassword" className="goback">
                 Forgot password

@@ -42,80 +42,50 @@ import TeacherResetPassword from "./TeacherResetPassword";
 
 function RouteHandle() {
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
 
-          {/* Admin Routes */}
-          <Route path="/adminprofile" element={<AdminProfile />} />
-          <Route path="/adminlogin" element={<Login />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/addbook" element={<AddBook />} />
-          <Route path="/bookdetails" element={<BookDetails />} />
-          <Route path="/bookview/:id" element={<BookView />} />
-          <Route path="/studentlist" element={<StudentList />} />
-          <Route path="/teacherlist" element={<TeacherList />} />
-          <Route path="/studentview/:id" element={<StudentView />} />
-          <Route path="/teacherview/:id" element={<TeacherView />} />
-          <Route path="/studentBookReq" element={<AdminViewStudentBookReq />} />
-          <Route path="/teacherBookReq" element={<AdminViewTeacherBookReq />} />
-          <Route path="/editbook/:id" element={<EditBook />} />
+        {/* Admin Routes */}
+        <Route path="/adminprofile" element={<AdminProfile />} />
+        <Route path="/adminlogin" element={<Login />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/addbook" element={<AddBook />} />
+        <Route path="/bookdetails" element={<BookDetails />} />
+        <Route path="/bookview/:id" element={<BookView />} />
+        <Route path="/studentlist" element={<StudentList />} />
+        <Route path="/teacherlist" element={<TeacherList />} />
+        <Route path="/studentview/:id" element={<StudentView />} />
+        <Route path="/teacherview/:id" element={<TeacherView />} />
+        <Route path="/studentBookReq" element={<AdminViewStudentBookReq />} />
+        <Route path="/teacherBookReq" element={<AdminViewTeacherBookReq />} />
+        <Route path="/editbook/:id" element={<EditBook />} />
 
-          {/* Student Routes */}
-          <Route path="/studentlogin" element={<StudentLogin />} />
-          <Route
-            path="/studentregistration"
-            element={<StudentRegistration />}
-          />
-          <Route path="/studentdashboard" element={<StudentDboard />} />
-          <Route path="/editstudentprofile" element={<OneStudentProfile />} />
-          <Route
-            path="/viewStudentProfile/:id"
-            element={<ViewStudentProfile />}
-          />
-          <Route
-            path="/studentViewAvailableBooks"
-            element={<StudentViewAvailableBooks />}
-          />
-          <Route path="/studentIssuedBook" element={<StudentIssuedBook />} />
-          <Route
-            path="/studentforgotpassword"
-            element={<StudentForgotPassword />}
-          />
-          <Route
-            path="/studentresetpassword/:id/:token"
-            element={<StudentResetPassword />}
-          />
+        {/* Student Routes */}
+        <Route path="/studentlogin" element={<StudentLogin />} />
+        <Route path="/studentregistration" element={<StudentRegistration />} />
+        <Route path="/studentdashboard" element={<StudentDboard />} />
+        <Route path="/editstudentprofile" element={<OneStudentProfile />} />
+        <Route path="/viewStudentProfile/:id" element={<ViewStudentProfile />} />
+        <Route path="/studentViewAvailableBooks" element={<StudentViewAvailableBooks />} />
+        <Route path="/studentIssuedBook" element={<StudentIssuedBook />} />
+        <Route path="/studentforgotpassword" element={<StudentForgotPassword />} />
+        <Route path="/studentresetpassword/:id/:token" element={<StudentResetPassword />} />
 
-          {/* Teacher Routes */}
-          <Route path="/teacherlogin" element={<TeacherLogin />} />
-
-          <Route path="/teachersignup" element={<TeacherSignUp />} />
-          <Route path="/teacherdashboard" element={<TeacherDashboard />} />
-          <Route path="/editteacherprofile" element={<OneTeacherProfile />} />
-          <Route
-            path="/viewTeacherProfile/:id"
-            element={<ViewTeacherProfile />}
-          />
-          <Route
-            path="/teacherViewAvailableBooks"
-            element={<TeacherViewAvailableBooks />}
-          />
-          <Route path="/teacherIssuedBook" element={<TeacherIssuedBook />} />
-          <Route
-            path="/teacherforgotpassword"
-            element={<TeacherForgotPassword />}
-          />
-          <Route
-            path="/teacherresetpassword/:id/:token"
-            element={<TeacherResetPassword />}
-          />
-        </Routes>
-      </Router>
-    </>
+        {/* Teacher Routes */}
+        <Route path="/teacherlogin" element={<TeacherLogin />} />
+        <Route path="/teachersignup" element={<TeacherSignUp />} />
+        <Route path="/teacherdashboard" element={<TeacherDashboard />} />
+        <Route path="/editteacherprofile" element={<OneTeacherProfile />} />
+        <Route path="/viewTeacherProfile/:id" element={<ViewTeacherProfile />} />
+        <Route path="/teacherViewAvailableBooks" element={<TeacherViewAvailableBooks />} />
+        <Route path="/teacherIssuedBook" element={<TeacherIssuedBook />} />
+        <Route path="/teacherforgotpassword" element={<TeacherForgotPassword />} />
+        <Route path="/teacherresetpassword/:id/:token" element={<TeacherResetPassword />} />
+      </Routes>
+    </Router>
   );
 }
 

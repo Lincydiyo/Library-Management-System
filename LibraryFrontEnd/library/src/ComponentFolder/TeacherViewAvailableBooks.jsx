@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
@@ -16,38 +15,41 @@ function TeacherViewAvailableBooks() {
   const teacherId = localStorage.getItem("teacherId");
 
   useEffect(() => {
-    //Fetch All available books
+    if (!teacherId) return;
+
+    // Fetch all available books
     axios
       .post("http://localhost:5000/book/findBook/")
       .then((response) => {
         setAllBooks(response.data.finddata);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        toast.error("Failed to load books.");
       });
-    // Fetch Teacher already requested books
+
+    // Fetch teacher's existing book requests
     axios
       .post(
         "http://localhost:5000/teacherBookReqRoute/findParticularTeacherRequests",
-        {
-          teacherId,
-        }
+        { teacherId }
       )
       .then((res) => {
         const alreadyRequested = res.data.RequestBook.filter(
           (req) => !req.returnDate
         ).map((req) => req.bookId._id);
+
         setRequestedBookIds(alreadyRequested);
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        toast.error("Failed to fetch your requested books.");
+      });
   }, [teacherId]);
 
-  // HandleBookRequests
   const handleBookReq = (book) => {
     const bookId = book?._id;
 
     if (!teacherId || !bookId) {
-      alert("Error : Missing teacherId Or BookId");
+      toast.error("Missing Teacher ID or Book ID.");
       return;
     }
 
@@ -60,19 +62,18 @@ function TeacherViewAvailableBooks() {
         toast.success(response.data.message);
         setRequestedBookIds((prev) => [...prev, bookId]);
       })
-      .catch((error) => {
-        alert("You have already requested this book.");
+      .catch(() => {
+        toast.warning("You have already requested this book.");
       });
   };
+
   return (
     <>
       <TeacherSideBar />
-
       {allBooks.length > 0 ? (
         <div className="availableBookCard">
           <Container>
-            <h2> Available Books</h2>
-
+            <h2>Available Books</h2>
             <Row className="g-4">
               {allBooks.map((book, index) => (
                 <Col key={index} xs={12} sm={6} md={4} lg={4}>
@@ -81,7 +82,7 @@ function TeacherViewAvailableBooks() {
                       <Card.Img
                         variant="top"
                         src={`http://localhost:5000/${book?.image?.filename}`}
-                        alt={book.title}
+                        alt={book.bookName}
                         className="card-img"
                       />
                     </div>
@@ -95,7 +96,7 @@ function TeacherViewAvailableBooks() {
                         Published: {book.published}
                         <br />
                         <span className="priceTag">
-                          Book Price : ${book.price}
+                          Book Price: ${book.price}
                         </span>
                       </Card.Subtitle>
 
