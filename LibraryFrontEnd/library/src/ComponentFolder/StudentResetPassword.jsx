@@ -27,7 +27,7 @@ function StudentResetPassword() {
     }
 
     axios
-      .post(`http://localhost:5000/user/resetpassword/${id}/${token}`, {
+      .post(`https://library-backend-plyq.onrender.com/user/resetpassword/${id}/${token}`, {
         password: newPassword,
       })
       .then((res) => {

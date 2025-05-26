@@ -13,7 +13,7 @@ function StudentView() {
 
   const findOneStudent = () => {
     axios
-      .post("http://localhost:5000/user/findOneStudent/" + id)
+      .post("https://library-backend-plyq.onrender.com/user/findOneStudent/" + id)
       .then((response) => {
         setOneStudent(response.data.finddata);
       })
@@ -34,7 +34,7 @@ function StudentView() {
             <Col xs={12} md={5} lg={5}>
               <Card.Img
                 variant="top"
-                src={`http://localhost:5000/${oneStudent?.image?.filename}`}
+                src={`https://library-backend-plyq.onrender.com/${oneStudent?.image?.filename}`}
               />
             </Col>
             <Col xs={12} md={7} lg={7} className="Cardbody">

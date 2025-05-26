@@ -19,7 +19,7 @@ function TeacherViewAvailableBooks() {
 
     // Fetch all available books
     axios
-      .post("http://localhost:5000/book/findBook/")
+      .post("https://library-backend-plyq.onrender.com/book/findBook/")
       .then((response) => {
         setAllBooks(response.data.finddata);
       })
@@ -30,7 +30,7 @@ function TeacherViewAvailableBooks() {
     // Fetch teacher's existing book requests
     axios
       .post(
-        "http://localhost:5000/teacherBookReqRoute/findParticularTeacherRequests",
+        "https://library-backend-plyq.onrender.com/teacherBookReqRoute/findParticularTeacherRequests",
         { teacherId }
       )
       .then((res) => {
@@ -54,7 +54,7 @@ function TeacherViewAvailableBooks() {
     }
 
     axios
-      .post("http://localhost:5000/teacherBookReqRoute/teacherBookRequest", {
+      .post("https://library-backend-plyq.onrender.com/teacherBookReqRoute/teacherBookRequest", {
         teacherId,
         bookId,
       })
@@ -81,7 +81,7 @@ function TeacherViewAvailableBooks() {
                     <div className="cardImg">
                       <Card.Img
                         variant="top"
-                        src={`http://localhost:5000/${book?.image?.filename}`}
+                        src={`https://library-backend-plyq.onrender.com/${book?.image?.filename}`}
                         alt={book.bookName}
                         className="card-img"
                       />

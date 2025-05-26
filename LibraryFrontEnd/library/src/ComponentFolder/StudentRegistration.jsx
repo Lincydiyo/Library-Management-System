@@ -46,7 +46,7 @@ function StudentRegistration() {
     formData.append("phoneno", studentSignup.phoneno);
 
     axios
-      .post("http://localhost:5000/user/signup", formData)
+      .post("https://library-backend-plyq.onrender.com/user/signup", formData)
       .then((response) => {
         toast.success(response.data.message, {
           onClose: () => navigate("/studentlogin"),

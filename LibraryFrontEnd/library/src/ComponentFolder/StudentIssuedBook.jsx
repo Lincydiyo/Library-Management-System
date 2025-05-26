@@ -15,7 +15,7 @@ function StudentIssuedBook() {
     const studentId = localStorage.getItem("studentId");
 
     axios
-      .post("http://localhost:5000/studentBookReqRoute/findParticularStudentRequests", {
+      .post("https://library-backend-plyq.onrender.com/studentBookReqRoute/findParticularStudentRequests", {
         studentId,
       })
       .then((response) => {
@@ -28,7 +28,7 @@ function StudentIssuedBook() {
 
   const handleReturn = (requestId) => {
     axios
-      .post("http://localhost:5000/studentBookReqRoute/studentReturnBook", { requestId })
+      .post("https://library-backend-plyq.onrender.com/studentBookReqRoute/studentReturnBook", { requestId })
       .then((response) => {
         toast.success(response.data.message);
         // Remove the returned book from the current list
@@ -80,7 +80,7 @@ function StudentIssuedBook() {
                     </td>
                     <td>
                       <img
-                        src={`http://localhost:5000/${issued.bookId?.image?.filename}`}
+                        src={`https://library-backend-plyq.onrender.com/${issued.bookId?.image?.filename}`}
                         alt="bookimg"
                         style={{ width: "50px", height: "70px" }}
                       />

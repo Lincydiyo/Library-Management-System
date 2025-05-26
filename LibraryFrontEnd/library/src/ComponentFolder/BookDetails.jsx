@@ -14,7 +14,7 @@ function BookDetails() {
   // BackEnd Connect to View AllBook On the Page load
   useEffect(() => {
     axios
-      .post("http://localhost:5000/book/findBook/")
+      .post("https://library-backend-plyq.onrender.com/book/findBook/")
       .then((respose) => {
         setBookDetail(respose.data.finddata);
       })
@@ -33,7 +33,7 @@ function BookDetails() {
   // Delete BookDetails
   const handleDelete = (id) => {
     axios
-      .post("http://localhost:5000/book/deleteBook/" + id)
+      .post("https://library-backend-plyq.onrender.com/book/deleteBook/" + id)
       .then((response) => {
         console.log("Response:", response);
         console.log("Response Data Message:", response?.data?.message);
@@ -79,7 +79,7 @@ function BookDetails() {
                     <td>{index + 1}</td>
                     <td>
                       <img
-                        src={`http://localhost:5000/${books?.image?.filename}`}
+                        src={`https://library-backend-plyq.onrender.com/${books?.image?.filename}`}
                         alt="bookimg"
                       />
                     </td>

@@ -40,7 +40,7 @@ function AddBook() {
     formData.append("image", bookAdd.image);
 
     axios
-      .post("http://localhost:5000/book/bookRegister", formData)
+      .post("https://library-backend-plyq.onrender.com/book/bookRegister", formData)
       .then((result) => {
         toast.success(result.data.message, {
           onClose: () => navigate("/bookdetails"),

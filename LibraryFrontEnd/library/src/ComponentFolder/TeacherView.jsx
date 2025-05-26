@@ -13,7 +13,7 @@ function TeacherView() {
 
   const findOneTeacher = () => {
     axios
-      .post(`http://localhost:5000/user/findOneTeacher/${id}`)
+      .post(`https://library-backend-plyq.onrender.com/user/findOneTeacher/${id}`)
       .then((response) => {
         setOneTeacher(response.data.finddata);
       })
@@ -32,7 +32,7 @@ function TeacherView() {
             <Col xs={12} md={5} lg={5}>
               <Card.Img
                 variant="top"
-                src={`http://localhost:5000/${oneTeacher?.image?.filename}`}
+                src={`https://library-backend-plyq.onrender.com/${oneTeacher?.image?.filename}`}
               />
             </Col>
             <Col xs={12} md={7} lg={7} className="Cardbody">

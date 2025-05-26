@@ -19,7 +19,7 @@ function TeacherSideBar() {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:5000/user/findOneTeacher/${id}`)
+      .post(`https://library-backend-plyq.onrender.com/user/findOneTeacher/${id}`)
       .then((response) => {
         setOneTeacher(response.data.finddata);
       })
@@ -63,7 +63,7 @@ function TeacherSideBar() {
               <div className="sidebar">
                 <div className="profileSection">
                   <img
-                    src={`http://localhost:5000/${oneTeacher?.image?.filename}`}
+                    src={`https://library-backend-plyq.onrender.com/${oneTeacher?.image?.filename}`}
                     alt="profileImg"
                     width={30}
                     height={30}
@@ -112,7 +112,7 @@ function TeacherSideBar() {
       <div className="sidebar d-none d-lg-block">
         <div className="profileSection">
           <img
-            src={`http://localhost:5000/${oneTeacher?.image?.filename}`}
+            src={`https://library-backend-plyq.onrender.com/${oneTeacher?.image?.filename}`}
             alt="profileImg"
             width={30}
             height={30}
