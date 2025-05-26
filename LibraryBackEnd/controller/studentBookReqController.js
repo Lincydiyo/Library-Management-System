@@ -4,9 +4,11 @@ const {
   studentBookReqValidations,
 } = require("../validations/studentReq.validation");
 
+// Create Book Request
 const studentReq = (req, res) => {
   const { studentId, bookId } = req.body;
   const { error } = studentBookReqValidations.validate({ studentId, bookId });
+  
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
@@ -20,7 +22,7 @@ const studentReq = (req, res) => {
   }).then((existingRequest) => {
     if (existingRequest) {
       return res.status(400).json({
-        message: "You  have already requested  this book.",
+        message: "You have already requested this book.",
       });
     }
 
@@ -31,6 +33,7 @@ const studentReq = (req, res) => {
       status: "Pending",
       requestDate: new Date(),
     });
+
     newRequest
       .save()
       .then((savedRequest) => {
@@ -49,8 +52,7 @@ const studentReq = (req, res) => {
   });
 };
 
-// Find All Students Requests
-
+// Find All Student Requests
 const findAllStudentReq = (req, res) => {
   StudentBookRequest.find({})
     .populate("studentId bookId")
@@ -67,7 +69,7 @@ const findAllStudentReq = (req, res) => {
     });
 };
 
-// Update the state (ie:Approved or Rejected) code
+// Update Book Request Status (Approve/Reject)
 const studentUpdateBookRequestStatus = (req, res) => {
   const { requestId, status } = req.body;
 
@@ -89,17 +91,11 @@ const studentUpdateBookRequestStatus = (req, res) => {
         return res.status(404).json({ message: "Book request not found" });
       }
 
-      // Set status and formatted request date
+      // Set status of the request
       request.status = status;
 
       // Format today's date as dd-mm-yyyy
       const today = new Date();
-      const formattedToday = formatDate(today);
-
-      // Format request date
-      const formattedRequestDate = formatDate(new Date(request.requestDate));
-
-      request.requestDate = formattedRequestDate;
 
       // Only calculate fine if the request is Approved
       if (status === "Approved") {
@@ -117,7 +113,7 @@ const studentUpdateBookRequestStatus = (req, res) => {
       });
     })
     .catch((error) => {
-      console.error(error);
+      console.error("Error updating request:", error);
       return res
         .status(500)
         .json({ message: "Error updating request", error: error.message });
@@ -132,7 +128,7 @@ const formatDate = (date) => {
   return `${dd}-${mm}-${yyyy}`;
 };
 
-// Find Particular person issued book
+// Find Book Requests by Student
 const findParticularStudentRequests = (req, res) => {
   const { studentId } = req.body;
 
@@ -164,6 +160,7 @@ const findParticularStudentRequests = (req, res) => {
       });
     });
 };
+
 // Return Book
 const returnBook = (req, res) => {
   const { requestId } = req.body;
@@ -205,7 +202,6 @@ const returnBook = (req, res) => {
 
       return request.save();
     })
-
     .then((updatedRequest) => {
       if (!updatedRequest) return;
       res
