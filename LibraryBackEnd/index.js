@@ -11,8 +11,8 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'https://lincydiyo.github.io',  
-  credentials: true
+  origin: "https://lincydiyo.github.io",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 app.use(parse.json());
 app.use(express.static(`${__dirname}/upload`));

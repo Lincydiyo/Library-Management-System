@@ -1,8 +1,17 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/library");
-const db = mongoose.connection;
+require("dotenv").config();
 
-db.on("error", console.error.bind(console, "Connection Error"));
-db.once("open", () => console.log("Connection Successful"));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(" MongoDB Atlas connection successful!");
+  } catch (error) {
+    console.error(" MongoDB connection error:", error.message);
+    process.exit(1); 
+  }
+};
 
-
+module.exports = connectDB;
