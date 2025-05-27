@@ -10,10 +10,9 @@ const AppError=require("./utils/appError")
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: "https://lincydiyo.github.io",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-}));
+
+app.use(cors());
+
 app.use(parse.json());
 app.use(express.static(`${__dirname}/upload`));
 app.use("/", mainRoute);
