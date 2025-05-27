@@ -29,9 +29,9 @@ function AdminProfile() {
                 Login <TbLogin2 style={{ fontSize: 25 }} />
               </Link>
             </button>
-            <a href="/" className="goback">
+            <Link to="/" className="goback">
               Go Back
-            </a>
+            </Link>
           </div>
         </div>
         <Footer/>

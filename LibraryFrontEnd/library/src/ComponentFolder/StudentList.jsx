@@ -15,7 +15,7 @@ function StudentList() {
 
   useEffect(() => {
     axios
-      .post("https://library-backend-plyq.onrender.com/user/findStudents/")
+      .post("http://localhost:5000/user/findStudents/")
       .then((response) => {
         setAllData(response.data.finddata);
       })
@@ -31,7 +31,7 @@ function StudentList() {
   //   Delete Student Details
   const deleteStudent = (id) => {
     axios
-      .post("https://library-backend-plyq.onrender.com/user/deleteUser/" + id)
+      .post("http://localhost:5000/user/deleteUser/" + id)
       .then(() => {
         setAllData(alldata.filter((student) => student._id !== id));
         toast.success("Student Data Deleted Successfully!");
@@ -67,7 +67,7 @@ function StudentList() {
                   <td>{index + 1}</td>
                   <td>
                     <img
-                      src={`https://library-backend-plyq.onrender.com/${student?.image?.filename}`}
+                      src={`http://localhost:5000/${student?.image?.filename}`}
                       alt="profileimg"
                     />
                   </td>

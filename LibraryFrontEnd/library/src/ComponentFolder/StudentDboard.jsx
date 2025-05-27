@@ -13,7 +13,7 @@ function StudentDboard() {
     const studentId = localStorage.getItem("studentId");
 
     axios
-      .post("https://library-backend-plyq.onrender.com/studentBookReqRoute/findParticularStudentRequests", {
+      .post("http://localhost:5000/studentBookReqRoute/findParticularStudentRequests", {
         studentId,
       })
       .then((response) => {

@@ -14,7 +14,7 @@ function AdminDashboard() {
   // Total Students
   useEffect(() => {
     axios
-      .post("https://library-backend-plyq.onrender.com/user/findStudents/")
+      .post("http://localhost:5000/user/findStudents/")
       .then((response) => {
         setTotalStudents(response.data.finddata.length);
       })

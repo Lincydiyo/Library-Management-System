@@ -16,7 +16,7 @@ function OneStudentProfile() {
   //   FindOneStudent
   useEffect(() => {
     axios
-      .post(`https://library-backend-plyq.onrender.com/user/findOneStudent/${id}`)
+      .post(`http://localhost:5000/user/findOneStudent/${id}`)
       .then((res) => {
         setOneStudent(res.data.finddata);
         setUpdateStudent(res.data.finddata);
@@ -62,7 +62,7 @@ function OneStudentProfile() {
     }
 
     axios
-      .post(`https://library-backend-plyq.onrender.com/user/updateUser/${id}`, formData, {
+      .post(`http://localhost:5000/user/updateUser/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -88,7 +88,7 @@ function OneStudentProfile() {
       {oneStudent ? (
         <section className="editDiv">
           <img
-            src={`https://library-backend-plyq.onrender.com/${oneStudent?.image?.filename}`}
+            src={`http://localhost:5000/${oneStudent?.image?.filename}`}
             alt="profileimg"
             style={{
               height: "auto",

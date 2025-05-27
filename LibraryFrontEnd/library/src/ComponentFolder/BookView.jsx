@@ -12,7 +12,7 @@ function BookView() {
   //  Fetch BackEnd Data to View OneBook Details
   useEffect(() => {
     axios
-      .post("https://library-backend-plyq.onrender.com/book/findOneBook/" + id)
+      .post("http://localhost:5000/book/findOneBook/" + id)
       .then((response) => {
         setOneBook(response.data.findbook);
       })
@@ -29,7 +29,7 @@ function BookView() {
           <Card.Img
             variant="top"
             className="cardImage"
-            src={`https://library-backend-plyq.onrender.com/${oneBook?.image?.filename}`}
+            src={`http://localhost:5000/${oneBook?.image?.filename}`}
           />
 
           <Card.Body>

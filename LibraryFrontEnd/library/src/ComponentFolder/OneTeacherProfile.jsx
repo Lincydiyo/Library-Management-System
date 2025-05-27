@@ -16,7 +16,7 @@ function OneTeacherProfile() {
     //   FindOneTeacher
   useEffect(() => {
     axios
-      .post(`https://library-backend-plyq.onrender.com/user/findOneTeacher/${id}`)
+      .post(`http://localhost:5000/user/findOneTeacher/${id}`)
       .then((res) => {
         setOneTeacher(res.data.finddata);
         setUpdateTeacher(res.data.finddata);
@@ -52,7 +52,7 @@ function OneTeacherProfile() {
     }
 
     axios
-      .post(`https://library-backend-plyq.onrender.com/user/updateUser/${id}`, formData, {
+      .post(`http://localhost:5000/user/updateUser/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -74,7 +74,7 @@ function OneTeacherProfile() {
       <section className="editDiv">
         {oneTeacher?.image?.filename && (
           <img
-            src={`https://library-backend-plyq.onrender.com/${oneTeacher.image.filename}`}
+            src={`http://localhost:5000/${oneTeacher.image.filename}`}
             alt="profile"
             style={{
               height: "auto",

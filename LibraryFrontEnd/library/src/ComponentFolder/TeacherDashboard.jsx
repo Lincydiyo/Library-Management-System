@@ -14,7 +14,7 @@ function TeacherDashboard() {
     const teacherId = localStorage.getItem("teacherId");
 
     axios
-      .post("https://library-backend-plyq.onrender.com/teacherBookReqRoute/findParticularTeacherRequests", {
+      .post("http://localhost:5000/teacherBookReqRoute/findParticularTeacherRequests", {
         teacherId,
       })
       .then((response) => {

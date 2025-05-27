@@ -13,7 +13,7 @@ function ViewStudentProfile() {
 
   useEffect(() => {
     axios
-      .post("https://library-backend-plyq.onrender.com/user/findOneStudent/" + id)
+      .post("http://localhost:5000/user/findOneStudent/" + id)
       .then((response) => {
         setProfile(response.data.finddata);
       })
@@ -33,7 +33,7 @@ function ViewStudentProfile() {
             <Col xs={12} md={5} lg={5}>
               <Card.Img
                 variant="top"
-                src={`https://library-backend-plyq.onrender.com/${Profile?.image?.filename}`}
+                src={`http://localhost:5000/${Profile?.image?.filename}`}
               />
             </Col>
             <Col xs={12} md={7} lg={7} className="Cardbody">

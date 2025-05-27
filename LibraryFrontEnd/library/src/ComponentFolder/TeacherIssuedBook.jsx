@@ -14,7 +14,7 @@ function TeacherIssuedBook() {
 
     axios
       .post(
-        "https://library-backend-plyq.onrender.com/teacherBookReqRoute/findParticularTeacherRequests",
+        "http://localhost:5000/teacherBookReqRoute/findParticularTeacherRequests",
         {
           teacherId,
         }
@@ -29,7 +29,7 @@ function TeacherIssuedBook() {
 
   const handleReturn = (requestId) => {
     axios
-      .post("https://library-backend-plyq.onrender.com/teacherBookReqRoute/teacherReturnBook", {
+      .post("http://localhost:5000/teacherBookReqRoute/teacherReturnBook", {
         requestId,
       })
       .then((response) => {
@@ -82,7 +82,7 @@ function TeacherIssuedBook() {
                     </td>
                     <td>
                       <img
-                        src={`https://library-backend-plyq.onrender.com/${issued.bookId?.image?.filename}`}
+                        src={`http://localhost:5000/${issued.bookId?.image?.filename}`}
                         alt="bookimg"
                         style={{ width: "50px", height: "70px" }}
                       />

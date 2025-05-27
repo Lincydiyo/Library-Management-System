@@ -13,7 +13,7 @@ function TeacherList() {
   //   BackEnd Data Connect to View All Teacher Details on the Page loading time
   useEffect(() => {
     axios
-      .post("https://library-backend-plyq.onrender.com/user/findTeachers/")
+      .post("http://localhost:5000/user/findTeachers/")
       .then((response) => {
         setAllData(response.data.finddata);
       })
@@ -30,7 +30,7 @@ function TeacherList() {
   //   Delete Teacher Details
   const deleteTeacher = (id) => {
     axios
-      .post("https://library-backend-plyq.onrender.com/user/deleteUser/" + id)
+      .post("http://localhost:5000/user/deleteUser/" + id)
       .then(() => {
         setAllData(alldata.filter((teacher) => teacher._id !== id));
         toast.success("Teacher Data Deleted Successfully");
@@ -67,7 +67,7 @@ function TeacherList() {
                     <td>{index + 1}</td>
                     <td>
                       <img
-                        src={`https://library-backend-plyq.onrender.com/${teacher?.image?.filename}`}
+                        src={`http://localhost:5000/${teacher?.image?.filename}`}
                         alt="profileimg"
                       />
                     </td>

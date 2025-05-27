@@ -15,7 +15,7 @@ function AdminViewTeacherBookReq() {
 
   const fetchBookRequests = () => {
     axios
-      .post("https://library-backend-plyq.onrender.com/teacherBookReqRoute/findAllTeacherRequest")
+      .post("http://localhost:5000/teacherBookReqRoute/findAllTeacherRequest")
       .then((response) => {
         const allRequests = response.data.RequestBook || [];
 
@@ -33,7 +33,7 @@ function AdminViewTeacherBookReq() {
   const handleStatusChange = (requestId, status) => {
     axios
       .post(
-        "https://library-backend-plyq.onrender.com/teacherBookReqRoute/teacherUpdateBookRequestStatus",
+        "http://localhost:5000/teacherBookReqRoute/teacherUpdateBookRequestStatus",
         {
           requestId,
           status,
@@ -95,7 +95,7 @@ function AdminViewTeacherBookReq() {
                     </td>
                     <td>
                       <img
-                        src={`https://library-backend-plyq.onrender.com/${request.bookId?.image?.filename}`}
+                        src={`http://localhost:5000/${request.bookId?.image?.filename}`}
                         alt="bookimg"
                       />
                     </td>

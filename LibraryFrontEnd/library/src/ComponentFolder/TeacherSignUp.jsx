@@ -39,7 +39,7 @@ function TeacherSignUp() {
     formData.append("phoneno", teachersignup.phoneno);
 
     axios
-      .post("https://library-backend-plyq.onrender.com/user/signup", formData)
+      .post("http://localhost:5000/user/signup", formData)
       .then((response) => {
         toast.success(response.data.message, {
           onClose: () => navigate("/teacherlogin"),

@@ -29,7 +29,7 @@ function EditBook() {
   // Fetch one book
   useEffect(() => {
     axios
-      .post(`https://library-backend-plyq.onrender.com/book/findOneBook/${id}`)
+      .post(`http://localhost:5000/book/findOneBook/${id}`)
       .then((response) => {
         const book = response.data.findbook;
 
@@ -61,7 +61,7 @@ function EditBook() {
   // Handle update
   const updateHandle = () => {
     axios
-      .post(`https://library-backend-plyq.onrender.com/book/updateBooks/${id}`, updateBook)
+      .post(`http://localhost:5000/book/updateBooks/${id}`, updateBook)
       .then((response) => {
         toast.success(response.data.message);
         setTimeout(() => {
@@ -82,7 +82,7 @@ function EditBook() {
       {updateBook ? (
         <section className="editDiv">
           <img
-            src={`https://library-backend-plyq.onrender.com/${oneBook?.image?.filename}`}
+            src={`http://localhost:5000/${oneBook?.image?.filename}`}
             alt="BookImage"
             style={{
               height: "auto",

@@ -16,7 +16,7 @@ function StudentForgotPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://library-backend-plyq.onrender.com/user/forgotpassword", { email, role })
+      .post("http://localhost:5000/user/forgotpassword", { email, role })
       .then((response) => {
         const resetLink = response.data.resetLink;
 
