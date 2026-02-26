@@ -1,0 +1,73 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+/* Container for book view */
+.mainBookDiv {
+  min-height: 100vh;
+  margin-left: 250px;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(44, 62, 80, 0.1);
+  transition: margin-left 0.3s ease;
+}
+
+/* Card Styling */
+.mainCard {
+  width: 100%;
+  max-width: 500px;
+  background-color: #ecf0f17a;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 5%;
+  box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+
+/* Book image styling */
+.cardImage {
+  height: auto;
+  width: 100%;
+  max-width: 200px;
+  margin: 20px auto;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .mainBookDiv {
+    margin-left: 0;
+    padding-top: 80px;
+  }
+
+  .mainCard {
+    max-width: 80%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .mainCard {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .cardImage {
+    max-width: 150px;
+  }
+
+  .mainCard h5,
+  .mainCard .card-title,
+  .mainCard .card-subtitle,
+  .mainCard .card-text {
+    font-size: 1rem;
+  }
+}

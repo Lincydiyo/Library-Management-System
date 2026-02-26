@@ -1,27 +1,25 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-
-const connectDB = require("./config/dbConnection");
+const parse = require("body-parser");
+const dotenv = require("dotenv");
+const dbconnection = require("./config/dbConnection");
 const mainRoute = require("./router/index");
 const errorMiddleware = require("./middleware/error.middleware");
-const AppError = require("./utils/appError");
+const AppError=require("./utils/appError")
 
-connectDB(); // ✅ Connect to DB
+dotenv.config();
 
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static(`${__dirname}/upload`));
 
+app.use(parse.json());
+app.use(express.static(`${__dirname}/upload`));
 app.use("/", mainRoute);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
-
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;

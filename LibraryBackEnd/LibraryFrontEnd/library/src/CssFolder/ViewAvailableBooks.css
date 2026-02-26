@@ -1,0 +1,114 @@
+/* General Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+.availableBookCard {
+  margin-left: 250px;
+  background-color: rgba(44, 62, 80, 0.2);
+  padding-bottom: 10%;
+}
+.availableBookCard h2 {
+  font-size: 42px;
+  font-weight: bolder;
+  color: #2c3e50;
+  padding-top: 10%;
+  text-align: center;
+}
+.availableBookCard p {
+  text-align: center;
+  margin-top: 30%;
+}
+/* Card Styling */
+.bookCard {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.59);
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 10%;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.bookCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 12px rgb(0, 0, 0);
+}
+
+/* Image Styling */
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Title and Author Styling */
+.cardTitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Price Tag Styling */
+.priceTag {
+  color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.viewButton {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewButton:hover {
+  background-color: #0056b3;
+}
+
+/* No Books Message */
+.no-books-message {
+  font-size: 1.5rem;
+  text-align: center;
+  color: black;
+  margin-top: 150px;
+}
+
+@media (max-width: 992px) {
+  .availableBookCard {
+    margin-left: 0px;
+    margin-bottom: 30px;
+  }
+    .availableBookCard h2{
+    padding-top: 15%;
+  }
+  .bookCard {
+    height: 400px;
+  }
+}
+@media (max-width: 576) {
+  .availableBookCard {
+    margin-left: 0px;
+    margin-bottom: 30px;
+    padding-bottom: 30%;
+  }
+
+  .bookCard {
+    height: 400px;
+  }
+}
