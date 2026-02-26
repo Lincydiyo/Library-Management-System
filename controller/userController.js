@@ -5,7 +5,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("../utils/sendEmail");
 const AppError = require("../utils/appError");
+const fs = require("fs");
+const path = require("path");
 
+const uploadPath = path.join(__dirname, "../upload");
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+  console.log("Upload folder created");
+}
 // Multer
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
@@ -22,7 +29,7 @@ const fileFilter = (req, file, cb) => {
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only image files are allowed (jpg, png, webp"));
+    cb(new Error("Only image files are allowed (jpg, png, webp)"));
   }
 };
 const upload = multer({ storage: storage, fileFilter: fileFilter }).single(
@@ -50,7 +57,7 @@ const userSignUp = (req, res) => {
         name,
         email,
         password,
-        image: req.file,
+        image: req.file.filename,
         department,
         phoneno,
         dob: role === "student" ? dob : undefined,
