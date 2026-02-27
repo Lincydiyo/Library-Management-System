@@ -23,7 +23,7 @@ const mainRoute = require("./router/index");
 app.use("/", mainRoute);
 
 // Default route for Render health check
-app.get("/", (req, res) => {
+app.get("/app", (req, res) => {
   res.status(200).json({ status: "success", message: "Library backend is running!" });
 });
 
